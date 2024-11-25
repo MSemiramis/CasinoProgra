@@ -12,5 +12,5 @@ export function leerTXT(ruta:string):any []{
     }
         return [];
     }
-
+//TEST//
 leerTXT('../instructivos/dados.txt');
