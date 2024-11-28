@@ -1,0 +1,3 @@
+export class Casino {
+    //CLASE CREADA SOLO PARA IMPORTARLA A LA RULETA
+}

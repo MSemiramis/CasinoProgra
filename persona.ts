@@ -1,0 +1,3 @@
+export class Persona {
+    //CLASE CREADA SOLO PARA IMPORTARLA A LA RULETA
+}
