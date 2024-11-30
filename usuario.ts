@@ -1,5 +1,4 @@
 
-
 export class Usuario{
 
     private nombre:string;
@@ -24,5 +23,12 @@ export class Usuario{
     }
     getSaldo(){
         return this.saldo;
+    }
+
+    sumarApuesta(premio:number){
+        this.saldo = this.saldo + premio;
+    }
+    restarApuesta(apuesta:number){
+        this.saldo = this.saldo - apuesta;
     }
 }

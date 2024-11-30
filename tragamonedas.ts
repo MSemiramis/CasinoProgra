@@ -1,4 +1,6 @@
 import { leerTXT } from "./utils/utils";
+import { Juego } from "./Juego";
+import { Usuario } from "./usuario";
 
 export abstract class Tragamonedas implements Juego {
 
@@ -13,8 +15,9 @@ export abstract class Tragamonedas implements Juego {
     }
 
     //METODOS//
-    abstract jugar():void;
-    abstract pagarPremio():void;
+    abstract jugar(usuario: Usuario, apuesta :number): void;
+    abstract pagarPremio(usuario :Usuario, apuesta:number ): void;
+    abstract restarApuesta(usuario :Usuario, apuesta:number): void;
 
     public leerReglamento(){
         leerTXT('./instructivos/tragamonedas.txt');
