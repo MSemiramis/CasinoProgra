@@ -1,4 +1,4 @@
-import { Tragamonedas } from "./tragamonedas";
+import { Tragamonedas } from "./Tragamonedas";
 import { Usuario } from "./usuario";
 
 
