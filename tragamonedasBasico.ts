@@ -1,5 +1,5 @@
 import { Tragamonedas } from "./Tragamonedas";
-import { Usuario } from "./usuario";
+import { Usuario } from "./Usuario";
 
 
 class TragamonedasBasico extends Tragamonedas{

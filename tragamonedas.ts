@@ -1,6 +1,6 @@
 import { leerTXT } from "./utils/utils";
 import { Juego } from "./Juego";
-import { Usuario } from "./usuario";
+import { Usuario } from "./Usuario";
 
 export abstract class Tragamonedas implements Juego {
 

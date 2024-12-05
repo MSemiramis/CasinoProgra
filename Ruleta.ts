@@ -1,5 +1,5 @@
 import { Juego } from "./Juego"; 
-import { Usuario} from "./usuario";
+import { Usuario} from "./Usuario";
 import * as rls from "readline-sync";
 
 export class Ruleta implements Juego {

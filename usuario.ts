@@ -1,13 +1,17 @@
 
 export class Usuario{
 
-    private nombre:string;
-    private saldo:number;
+    protected id: String;
+    protected nombre:string;
+    protected saldo:number;
 
-    constructor(nombre:string, saldo:number){
+    constructor(id: string, nombre:string, saldo:number){
+        this.id = id;
         this.nombre = nombre;
         this.saldo = saldo;
     }
+
+
 
     //SETTERS//
     setNombre(nombre:string){
@@ -16,8 +20,15 @@ export class Usuario{
     setSaldo(saldo:number){
         this.saldo = saldo;
     }
+    setId(id:string){
+        this.id = id;
+    }
+
     
     //GETTERS//
+    getId(){
+        return this.id;
+    }
     getNombre(){
         return this.nombre;
     }
