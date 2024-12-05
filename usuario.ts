@@ -2,20 +2,20 @@
 export class Usuario{
 
     protected id: String;
-    protected nombre:string;
+    protected nombreUsuario:String;
+    protected pass : String;
     protected saldo:number;
 
-    constructor(id: string, nombre:string, saldo:number){
+    constructor(id: String, nombreUsuario:String, pass:String, saldo:number){
         this.id = id;
-        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
         this.saldo = saldo;
+        this.pass = pass;
     }
 
-
-
     //SETTERS//
-    setNombre(nombre:string){
-        this.nombre = nombre;
+    setNombre(nombreUsuario:string){
+        this.nombreUsuario = nombreUsuario;
     }
     setSaldo(saldo:number){
         this.saldo = saldo;
@@ -23,15 +23,17 @@ export class Usuario{
     setId(id:string){
         this.id = id;
     }
-
-    
+    setPass(pass:string){
+        this.pass = pass;
+    }
     //GETTERS//
     getId(){
         return this.id;
     }
-    getNombre(){
-        return this.nombre;
+    getNombreUsuario(){
+        return this.nombreUsuario;
     }
+    
     getSaldo(){
         return this.saldo;
     }
@@ -41,5 +43,9 @@ export class Usuario{
     }
     restarApuesta(apuesta:number){
         this.saldo = this.saldo - apuesta;
+    }
+
+    public validarPass(pass: string): boolean {
+        return this.pass === pass;
     }
 }
