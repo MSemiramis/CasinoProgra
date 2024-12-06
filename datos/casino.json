@@ -4,14 +4,20 @@
     {
       "id": "U1",
       "nombreUsuario": "semi",
-      "saldo": 15000,
-      "pass": "123semi"
+      "saldo": 20000,
+      "pass": "1234"
     },
     {
-      "id": "U1",
-      "nombreUsuario": "semi",
-      "saldo": 20000,
-      "pass": "123semi"
+      "id": "U2",
+      "nombreUsuario": "enzo",
+      "saldo": 15000,
+      "pass": "1234"
+    },
+    {
+      "id": "U3",
+      "nombreUsuario": "ziba",
+      "saldo": 25000,
+      "pass": "1234"
     }
   ]
 }

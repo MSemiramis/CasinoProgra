@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.leerTXT = leerTXT;
+exports.leerTXT = void 0;
 var fs = require("fs");
 //Leer un txt para leer los reglamentos. A corregir 
 function leerTXT(ruta) {
@@ -14,5 +14,6 @@ function leerTXT(ruta) {
     }
     return [];
 }
+exports.leerTXT = leerTXT;
 //TEST//
 leerTXT('../instructivos/dados.txt');

@@ -42,7 +42,7 @@ export class Ruleta implements Juego {
             apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima " + this.getApuestaMinima() + "): ");
         }
         this.setApuesta(apuesta);
-        return
+        return 
     }
 
     private encontrarArreglo(arreglo: number[][], numeroBuscado: number): number {
@@ -60,7 +60,7 @@ export class Ruleta implements Juego {
         this.setPremio();
     }
 
-    private jugarRuleta(comparacion: any): void {
+    private jugarRuleta(comparacion: any, ): void {
         if (comparacion) {
             console.log(`Felicitaciones! Has ganado. Tu premio es de $ ${this.getPremio()}`);
             //this.pagarPremio(¿?);     A que cliente se lo mando?? habria que ver como traer al cliente o cambiar el metodo pagarPremio()

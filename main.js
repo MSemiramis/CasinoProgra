@@ -23,6 +23,10 @@ function inicioConsola() {
 }
 function crearUsuario(casino) {
     var nombreUsuario = rls.question("Ingrese su nombre de usuario:");
+    while (casino.verificarUsuario(nombreUsuario) !== undefined) {
+        console.log("Este nombre de usuario ya está en uso. Intente con otro.");
+        nombreUsuario = rls.question("Ingrese un nuevo nombre de usuario:");
+    }
     var pass = rls.question("Ingrese su contrasenia:");
     var saldoInicial = rls.questionInt("ingrese su saldo inicial:");
     casino.altaUsuario(nombreUsuario, pass, saldoInicial);
@@ -31,6 +35,7 @@ function iniciarSesion(casino) {
     var nombreUsuario = rls.question("Ingrese su nombre de usuario: ");
     var pass = rls.question("Ingrese su contrasenia: ");
     var usuario = casino.buscarUsuario(nombreUsuario, pass);
+    console.log(usuario);
     if (usuario) {
         console.log("\n\u00A1Bienvenido, ".concat(usuario.getNombreUsuario, "!"));
         return usuario;
@@ -61,11 +66,10 @@ function iniciarCasino() {
         }
     }
     //si el usuiario es correcto que muestre el menu de juegos
-    menuIncial(usuario);
+    menuIncial(usuario, casino);
 }
-function menuIncial(usuario) {
+function menuIncial(usuario, casino) {
     while (true) {
-        console.clear();
         console.log("\nBienvenido al casino  ".concat(usuario.getNombreUsuario(), " | Saldo: $").concat(usuario.getSaldo()));
         console.log("**Seleccione un juego para comenzar sus apuestas: ");
         console.log("1: Jugar Tragamonedas Basico");
@@ -73,6 +77,7 @@ function menuIncial(usuario) {
         console.log("3: Jugar Tragamonedas por cantidad");
         console.log("4: Jugar Dados");
         console.log("5: Jugar Ruleta");
+        console.log("6: Cargar saldo");
         console.log("0: Cerrar secion");
         console.log("=============Casino La Gaita=============");
         var entrada = rls.questionInt("\nIngrese una opcion: ");
@@ -94,9 +99,19 @@ function menuIncial(usuario) {
                 console.log("Debe crear un usuario primero.");
                 break;
             case 5:
-                jugarRuleta(ruleta);
+                jugarRuleta();
                 console.log("Debe crear un usuario primero.");
                 break;
+            case 6:
+                var carga = rls.questionInt("\nIngrese el monto a cargar: ");
+                console.log(carga);
+                if (carga < 0) {
+                    console.log("Ingreso de saldo invalido.");
+                }
+                else {
+                    casino.modificarSaldo(usuario, carga);
+                }
+                menuIncial(usuario, casino);
             case 0:
                 console.log("Gracias por visitar el Casino La Gaita. ¡Hasta pronto!");
                 return 0;
@@ -142,8 +157,8 @@ function imprimirMatriz(matriz){
 imprimirMatriz(generarMatriz());*/
 //------------------------------------------------Ruleta------------------------------------------------------
 var apuestaMin = 100;
-var ruleta = new Ruleta_1.Ruleta(apuestaMin);
-function jugarRuleta(ruleta) {
+function jugarRuleta() {
+    var ruleta = new Ruleta_1.Ruleta(100);
     var elegirApuesta = menuRuleta(ruleta);
     while (elegirApuesta !== 0) {
         modoDeJuego(elegirApuesta, ruleta);
@@ -151,7 +166,6 @@ function jugarRuleta(ruleta) {
     }
     console.log("Volviendo al menú principal.");
 }
-jugarRuleta(ruleta);
 function volverAtras() {
     var entrada = rls.questionInt("\nIngrese 0 para volver atras: ");
     while (entrada != 0) {

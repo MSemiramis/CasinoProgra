@@ -29,7 +29,12 @@ import { JuegoDeDados } from "./JuegoDeDados";
     }
 
     function crearUsuario(casino: Casino){
-        const nombreUsuario = rls.question("Ingrese su nombre de usuario:");
+        let nombreUsuario = rls.question("Ingrese su nombre de usuario:");
+
+        while (casino.verificarUsuario(nombreUsuario, ) !== undefined) {
+            console.log("Este nombre de usuario ya está en uso. Intente con otro.");
+            nombreUsuario = rls.question("Ingrese un nuevo nombre de usuario:");
+        }
         const pass = rls.question("Ingrese su contrasenia:");
         const saldoInicial = rls.questionInt("ingrese su saldo inicial:");
         casino.altaUsuario(nombreUsuario, pass,  saldoInicial)
@@ -39,6 +44,7 @@ import { JuegoDeDados } from "./JuegoDeDados";
         const nombreUsuario = rls.question("Ingrese su nombre de usuario: ");
         const pass = rls.question("Ingrese su contrasenia: ");
         const usuario = casino.buscarUsuario(nombreUsuario, pass);
+        console.log(usuario);
         if (usuario) {
           console.log(`\n¡Bienvenido, ${usuario.getNombreUsuario}!`);
           return usuario;
@@ -72,12 +78,11 @@ import { JuegoDeDados } from "./JuegoDeDados";
         }
       
         //si el usuiario es correcto que muestre el menu de juegos
-        menuIncial(usuario);
+        menuIncial(usuario, casino);
       }
 
-    function menuIncial(usuario : Usuario): number{
+    function menuIncial(usuario : Usuario, casino :Casino): number{
         while (true){
-            console.clear();
             console.log(`\nBienvenido al casino  ${usuario.getNombreUsuario()} | Saldo: $${usuario.getSaldo()}`);
             console.log(`**Seleccione un juego para comenzar sus apuestas: `);
             console.log("1: Jugar Tragamonedas Basico");  
@@ -85,13 +90,14 @@ import { JuegoDeDados } from "./JuegoDeDados";
             console.log("3: Jugar Tragamonedas por cantidad");
             console.log("4: Jugar Dados");    
             console.log("5: Jugar Ruleta");
-            console.log("0: Cerrar secion")        
+            console.log("6: Cargar saldo");
+            console.log("0: Cerrar secion");
             console.log("=============Casino La Gaita=============");
 
             let entrada: number = rls.questionInt("\nIngrese una opcion: ");
             switch (entrada) {
                 case 1:
-                    jugarTragamonedas();
+                    jugarTragamonedasBasico();
                     console.log("Debe crear un usuario primero.");
                     break;
                 case 2:
@@ -107,9 +113,18 @@ import { JuegoDeDados } from "./JuegoDeDados";
                     console.log("Debe crear un usuario primero.");
                     break;
                 case 5:
-                    jugarRuleta(ruleta); 
+                    jugarRuleta(); 
                     console.log("Debe crear un usuario primero.");
                     break;
+                case 6:
+                    let carga: number = rls.questionInt("\nIngrese el monto a cargar: ");
+                    console.log(carga);
+                    if(carga < 0){
+                        console.log("Ingreso de saldo invalido.")
+                    }else{
+                        casino.modificarSaldo(usuario, carga);
+                    }
+                    menuIncial(usuario, casino);
                 case 0:
                     console.log("Gracias por visitar el Casino La Gaita. ¡Hasta pronto!");
                     return 0;
@@ -121,9 +136,8 @@ import { JuegoDeDados } from "./JuegoDeDados";
 
     iniciarCasino();
 
-function jugarTragamonedas() {
-    // Lógica para tragamonedas
-    console.log("Iniciando Tragamonedas...");
+function jugarTragamonedasBasico() {
+    let apuesta: number = rls.questionInt("\nIngrese el monto de la apuesta: ");
 }
 
 function jugarDados() {
@@ -160,9 +174,10 @@ imprimirMatriz(generarMatriz());*/
 
 //------------------------------------------------Ruleta------------------------------------------------------
 let apuestaMin: number = 100;
-let ruleta: Ruleta = new Ruleta(apuestaMin);
 
-function jugarRuleta(ruleta : Ruleta) {
+
+function jugarRuleta() {
+    let ruleta: Ruleta = new Ruleta(100);
     let elegirApuesta: number = menuRuleta(ruleta); 
 
     while (elegirApuesta !== 0) { 
@@ -173,7 +188,7 @@ function jugarRuleta(ruleta : Ruleta) {
     console.log("Volviendo al menú principal.");
      
 }
-jugarRuleta(ruleta);
+
 
 function volverAtras(): void{
     let entrada: number = rls.questionInt("\nIngrese 0 para volver atras: ");

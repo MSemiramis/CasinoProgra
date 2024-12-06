@@ -23,6 +23,33 @@ var Casino = /** @class */ (function () {
             console.error("no hay usuario");
         }
     };
+    Casino.prototype.modificarSaldo = function (usuario, monto) {
+        if (!usuario) {
+            console.log("Error de ejecución, usuario inválido.");
+            return;
+        }
+        var indice = this.usuarios.findIndex(function (u) { return u.getId() === usuario.getId(); });
+        if (indice === -1) {
+            console.log("Usuario no encontrado en el sistema.");
+            return;
+        }
+        var nuevoSaldo = usuario.getSaldo() + monto;
+        if (nuevoSaldo < 0) {
+            console.log("Usuario sin saldo. Por favor, cargar saldo para seguir jugando en Casino La Gaita.");
+            this.usuarios[indice].setSaldo(0);
+        }
+        else if (nuevoSaldo > 0) {
+            console.log("Su saldo actual es " + nuevoSaldo);
+            this.usuarios[indice].setSaldo(nuevoSaldo);
+        }
+        else {
+            console.log("Error en el saldo. Contactar a soporte de Casino La Gaita.");
+        }
+        this.guardarEnJSON();
+    };
+    Casino.prototype.verificarUsuario = function (nombreUsuario) {
+        return this.usuarios.find(function (u) { return u.getNombreUsuario() === nombreUsuario; });
+    };
     Casino.prototype.cargarDesdeJSON = function () {
         if (fs.existsSync(this.RUTA_DATOS)) {
             var data = JSON.parse(fs.readFileSync(this.RUTA_DATOS, "utf-8"));
