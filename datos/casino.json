@@ -1,12 +1,16 @@
 {
   "usuarios": [
-    [
-      []
-    ],
+    {},
     {
       "id": "U1",
       "nombreUsuario": "semi",
       "saldo": 15000,
+      "pass": "123semi"
+    },
+    {
+      "id": "U1",
+      "nombreUsuario": "semi",
+      "saldo": 20000,
       "pass": "123semi"
     }
   ]

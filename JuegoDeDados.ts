@@ -20,5 +20,5 @@ export class JuegoDeDados {
     sumarDados(): number {
       return this.dado1 + this.dado2;
     }
-  }
+}
   

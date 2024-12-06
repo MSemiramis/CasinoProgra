@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 //import { leerTXT } from "./utils/utils";
 var Ruleta_1 = require("./Ruleta");
-var MiJuegoDeDados_1 = require("./MiJuegoDeDados");
 var Casino_1 = require("./Casino");
 var rls = require("readline-sync");
+var JuegoDeDados_1 = require("./JuegoDeDados");
 //import { TragamonedaBasicos } from "./TragamonedasBasico"
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 //QA MANUAL TESTING
@@ -82,51 +82,39 @@ function menuIncial(usuario) {
                 console.log("Debe crear un usuario primero.");
                 break;
             case 2:
-                jugarDados();
-                console.log("Debe crear un usuario primero.");
-                break;
+            /*jugarDados();
+            console.log("Debe crear un usuario primero.");
+            break;*/
             case 3:
-                /*if (usuario) jugarDados();
-                else console.log("Debe crear un usuario primero.");*/
-                break;
-            case 4:
             /*if (usuario) jugarDados();
             else console.log("Debe crear un usuario primero.");
             break;*/
+            case 4:
+                jugarDados();
+                console.log("Debe crear un usuario primero.");
+                break;
             case 5:
-                jugarRuleta();
+                jugarRuleta(ruleta);
                 console.log("Debe crear un usuario primero.");
                 break;
             case 0:
                 console.log("Gracias por visitar el Casino La Gaita. ¡Hasta pronto!");
-                volverMenuInicial();
+                return 0;
             default:
                 console.log("Opción inválida. Intente nuevamente.");
         }
     }
 }
 iniciarCasino();
-function volverMenuInicial() {
-    rls.question();
-    inicioConsola();
-}
 function jugarTragamonedas() {
     // Lógica para tragamonedas
     console.log("Iniciando Tragamonedas...");
 }
 function jugarDados() {
-    var miJuego = new MiJuegoDeDados_1.MiJuegoDeDados(7, 10, 'Par');
-    miJuego.jugar();
-}
-function jugarRuleta() {
-    var apuestaMin = 100;
-    var ruleta = new Ruleta_1.Ruleta(apuestaMin);
-    var elegirApuesta = menuRuleta(ruleta);
-    while (elegirApuesta !== 0) {
-        modoDeJuego(elegirApuesta, ruleta);
-        elegirApuesta = menuRuleta(ruleta);
-    }
-    console.log("Volviendo al menú principal.");
+    var miJuego = new JuegoDeDados_1.JuegoDeDados();
+    miJuego.tirarDados();
+    console.log("El resultado de los dados es: ".concat(miJuego.sumarDados()));
+    rls.question("Presione Enter para continuar...");
 }
 /*------------------------------------------------TragaMonedas------------------------------------------------------
 
@@ -140,12 +128,6 @@ function imprimirMatriz(matriz){
 }
 
 // imprimirMatriz();
-
-const simbolos: any[] = ["9", "10", "J", "Q", "K", "A"];
-
-function generarMatriz(){
-    let salida:string [][] = [];
-
     for(let i=0; i<3; i++ ){
         let fila:string [] = [];
         for(let j=0; j<5; j++){
@@ -161,11 +143,15 @@ imprimirMatriz(generarMatriz());*/
 //------------------------------------------------Ruleta------------------------------------------------------
 var apuestaMin = 100;
 var ruleta = new Ruleta_1.Ruleta(apuestaMin);
-var elegirApuesta = menuRuleta(ruleta);
-while (elegirApuesta != 0) {
-    modoDeJuego(elegirApuesta, ruleta);
-    elegirApuesta = menuRuleta(ruleta);
+function jugarRuleta(ruleta) {
+    var elegirApuesta = menuRuleta(ruleta);
+    while (elegirApuesta !== 0) {
+        modoDeJuego(elegirApuesta, ruleta);
+        elegirApuesta = menuRuleta(ruleta);
+    }
+    console.log("Volviendo al menú principal.");
 }
+jugarRuleta(ruleta);
 function volverAtras() {
     var entrada = rls.questionInt("\nIngrese 0 para volver atras: ");
     while (entrada != 0) {

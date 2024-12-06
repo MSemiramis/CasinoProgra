@@ -62,5 +62,6 @@ export class Casino{
             (u) => u.getNombreUsuario() === nombreUsuario && u.validarPass(pass)
           );
         }
-    }
+}
+
 
