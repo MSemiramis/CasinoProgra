@@ -23,7 +23,7 @@ var TragamonedasCantidad = /** @class */ (function (_super) {
     function TragamonedasCantidad(casino, usuario) {
         //Apuesta minima 1 para el juego basico
         //Multiplicador de ganancia 20%
-        var _this = _super.call(this, 50, 8) || this;
+        var _this = _super.call(this, 100, 12) || this;
         _this.casino = casino;
         _this.usuario = usuario;
         return _this;
@@ -35,11 +35,7 @@ var TragamonedasCantidad = /** @class */ (function (_super) {
             apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta m\u00EDnima ".concat(this.getApuestaMinima(), "): "));
         }
         var tienePremio = false;
-        var partida = [
-            ['9', 'K', 'A', 'J', 'K'],
-            ['K', 'K', 'K', '10', 'K'],
-            ['Q', 'K', 'J', 'K', 'K']
-        ];
+        var partida = this.generarMatriz();
         console.log(partida);
         var contador = {};
         for (var i = 0; i < partida.length; i++) {

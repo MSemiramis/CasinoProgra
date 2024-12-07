@@ -141,7 +141,7 @@ function jugarTragamonedasBasico(casino: Casino, usuario: Usuario): void {
         console.log(" ");
         console.log(`Seleccione una opcion: `);
         console.log("1: Leer reglas.");  
-        console.log("2: Juagr partida Basica");          
+        console.log("2: Juagr partida Basica.");          
         console.log("3: Volver atras.");
         let entrada: number = rls.questionInt("\nIngrese una opcion: ");
         switch (entrada) {
@@ -193,7 +193,7 @@ function jugarTragamonedasCantidad(casino: Casino, usuario: Usuario): void {
         console.log(" ");
         console.log(`Seleccione una opcion: `);
         console.log("1: Leer reglas.");  
-        console.log("2: Juagr partida por Linea.");          
+        console.log("2: Juagr partida por Cantidad.");          
         console.log("3: Volver atras.");
         let entrada: number = rls.questionInt("\nIngrese una opcion: ");
         switch (entrada) {
@@ -207,7 +207,7 @@ function jugarTragamonedasCantidad(casino: Casino, usuario: Usuario): void {
                 menuIncial(usuario, casino);
                 break;
             default:
-                jugarTragamonedasLinea(casino, usuario);
+                jugarTragamonedasCantidad(casino, usuario);
                 break;
         }
     }
