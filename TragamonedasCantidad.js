@@ -15,12 +15,12 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TragamonedasLinea = void 0;
+exports.TragamonedasCantidad = void 0;
 var Tragamonedas_1 = require("./Tragamonedas");
 var rls = require("readline-sync");
-var TragamonedasLinea = /** @class */ (function (_super) {
-    __extends(TragamonedasLinea, _super);
-    function TragamonedasLinea(casino, usuario) {
+var TragamonedasCantidad = /** @class */ (function (_super) {
+    __extends(TragamonedasCantidad, _super);
+    function TragamonedasCantidad(casino, usuario) {
         //Apuesta minima 1 para el juego basico
         //Multiplicador de ganancia 20%
         var _this = _super.call(this, 50, 8) || this;
@@ -28,32 +28,39 @@ var TragamonedasLinea = /** @class */ (function (_super) {
         _this.usuario = usuario;
         return _this;
     }
-    TragamonedasLinea.prototype.jugar = function () {
+    TragamonedasCantidad.prototype.jugar = function () {
         var apuesta = 0;
         var saldoUsuario = this.usuario.getSaldo();
         while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) {
-            apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima ".concat(this.getApuestaMinima(), "): "));
+            apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta m\u00EDnima ".concat(this.getApuestaMinima(), "): "));
         }
         var tienePremio = false;
-        var partida = this.generarMatriz();
-        /*
-        [
-        [ '9', 'K', 'A', 'J', 'K' ],
-        [ 'K', 'K', 'K', 'K', 'K' ],
-        [ 'Q', '10', 'J', 'J', '10' ]
-                        ]
-        */
+        var partida = [
+            ['9', 'K', 'A', 'J', 'K'],
+            ['K', 'K', 'K', '10', 'K'],
+            ['Q', 'K', 'J', 'K', 'K']
+        ];
         console.log(partida);
-        var _loop_1 = function (i) {
-            var fila = partida[i];
-            if (fila.every(function (valor) { return valor === fila[0]; })) {
-                tienePremio = true;
-                this_1.pagarPremio(apuesta);
-            }
-        };
-        var this_1 = this;
+        var contador = {};
         for (var i = 0; i < partida.length; i++) {
-            _loop_1(i);
+            var fila = partida[i];
+            for (var j = 0; j < fila.length; j++) {
+                var caracter = fila[j];
+                if (contador[caracter]) {
+                    contador[caracter] += 1;
+                }
+                else {
+                    contador[caracter] = 1;
+                }
+            }
+        }
+        for (var caracter in contador) {
+            if (contador[caracter] === 10) {
+                tienePremio = true;
+                this.pagarPremio(apuesta);
+                console.log("\u00A1Has ganado con ".concat(caracter, " (aparece 10 veces)!"));
+                break;
+            }
         }
         if (!tienePremio) {
             console.log("La tirada no tiene premio.");
@@ -61,14 +68,14 @@ var TragamonedasLinea = /** @class */ (function (_super) {
         }
     };
     //Verificar si estos metodos pasan al padre, se pueden reutilizar.
-    TragamonedasLinea.prototype.pagarPremio = function (apuesta) {
+    TragamonedasCantidad.prototype.pagarPremio = function (apuesta) {
         var premio = (apuesta * this.multiplicadorApuesta) - apuesta;
         this.casino.modificarSaldo(this.usuario, premio);
         console.log("Usted a ganado un premio. Se ha pagado " + premio);
     };
-    TragamonedasLinea.prototype.restarApuesta = function (apuesta) {
+    TragamonedasCantidad.prototype.restarApuesta = function (apuesta) {
         this.casino.modificarSaldo(this.usuario, -apuesta);
     };
-    return TragamonedasLinea;
+    return TragamonedasCantidad;
 }(Tragamonedas_1.Tragamonedas));
-exports.TragamonedasLinea = TragamonedasLinea;
+exports.TragamonedasCantidad = TragamonedasCantidad;

@@ -17,35 +17,53 @@ export class TragamonedasCantidad extends Tragamonedas{
         this.usuario = usuario;
     }
 
-public jugar(): void {
+    public jugar(): void {
         let apuesta: number = 0;
         const saldoUsuario = this.usuario.getSaldo();
     
         while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) {
-            apuesta = rls.questionInt(`\nIngrese el monto a apostar (apuesta minima ${this.getApuestaMinima()}): `);
+            apuesta = rls.questionInt(`\nIngrese el monto a apostar (apuesta mínima ${this.getApuestaMinima()}): `);
         }
     
         let tienePremio = false;
-        const partida = [
-        [ '9', 'K', 'A', 'J', 'K' ],
-        [ 'K', 'K', 'K', 'K', 'K' ],
-        [ 'Q', '10', 'J', 'J', '10' ]
-                        ]
+        const partida = 
+        [
+            [ '9', 'K', 'A', 'J', 'K' ],
+            [ 'K', 'K', 'K', '10', 'K' ],
+            [ 'Q', 'K', 'J', 'K', 'K' ]
+                            ]
+
         console.log(partida);
-    
+        const contador: { [key: string]: number } = {};
+
         for (let i = 0; i < partida.length; i++) {
-            const fila = partida[i]
-            if (fila.every((valor) => valor === fila[0])) {
-                tienePremio = true;
-                this.pagarPremio(apuesta);
+            const fila = partida[i];
+    
+            for (let j = 0; j < fila.length; j++) {
+                const caracter = fila[j];
+    
+                if (contador[caracter]) {
+                    contador[caracter] += 1;
+                } else {
+                    contador[caracter] = 1;
+                }
             }
         }
-
+        for (let caracter in contador) {
+            if (contador[caracter] === 10) {
+                tienePremio = true;
+                this.pagarPremio(apuesta);
+                console.log(`¡Has ganado con ${caracter} (aparece 10 veces)!`);
+                break;
+            }
+        }
+    
         if (!tienePremio) {
             console.log("La tirada no tiene premio.");
             this.restarApuesta(apuesta);
         }
- }
+    }
+    
     
 
     //Verificar si estos metodos pasan al padre, se pueden reutilizar.

@@ -8,6 +8,7 @@ var JuegoDeDados_1 = require("./JuegoDeDados");
 var utils_1 = require("./utils/utils");
 var tragamonedasBasico_1 = require("./tragamonedasBasico");
 var TragamonedasLinea_1 = require("./TragamonedasLinea");
+var TragamonedasCantidad_1 = require("./TragamonedasCantidad");
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 //QA MANUAL TESTING
 /*TEST DE LECTURA DE TXT*/
@@ -91,9 +92,8 @@ function menuIncial(usuario, casino) {
                 jugarTragamonedasLinea(casino, usuario);
                 break;
             case 3:
-            /*if (usuario) jugarDados();
-            else console.log("Debe crear un usuario primero.");
-            break;*/
+                jugarTragamonedasCantidad(casino, usuario);
+                break;
             case 4:
                 jugarDados(casino, usuario);
                 console.log("Debe crear un usuario primero.");
@@ -148,6 +148,31 @@ function jugarTragamonedasBasico(casino, usuario) {
 }
 function jugarTragamonedasLinea(casino, usuario) {
     var tragamonedas = new TragamonedasLinea_1.TragamonedasLinea(casino, usuario); // Instancia correcta
+    while (true) {
+        console.log(" ");
+        console.log("Seleccione una opcion: ");
+        console.log("1: Leer reglas.");
+        console.log("2: Juagr partida por Linea.");
+        console.log("3: Volver atras.");
+        var entrada = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                (0, utils_1.leerTXT)('./instructivos/tragamonedas.txt');
+                break;
+            case 2:
+                tragamonedas.jugar();
+                break;
+            case 3:
+                menuIncial(usuario, casino);
+                break;
+            default:
+                jugarTragamonedasLinea(casino, usuario);
+                break;
+        }
+    }
+}
+function jugarTragamonedasCantidad(casino, usuario) {
+    var tragamonedas = new TragamonedasCantidad_1.TragamonedasCantidad(casino, usuario); // Instancia correcta
     while (true) {
         console.log(" ");
         console.log("Seleccione una opcion: ");
