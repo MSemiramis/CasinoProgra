@@ -32,6 +32,10 @@ var Tragamonedas = /** @class */ (function () {
     Tragamonedas.prototype.setMultiplicadorApuesta = function (multiplicadorApuesta) {
         this.multiplicadorApuesta = multiplicadorApuesta;
     };
+    //GETTER
+    Tragamonedas.prototype.getApuestaMinima = function () {
+        return this.minApuesta;
+    };
     return Tragamonedas;
 }());
 exports.Tragamonedas = Tragamonedas;

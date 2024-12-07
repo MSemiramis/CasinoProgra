@@ -6,7 +6,7 @@ var Casino_1 = require("./Casino");
 var rls = require("readline-sync");
 var JuegoDeDados_1 = require("./JuegoDeDados");
 var utils_1 = require("./utils/utils");
-//import { TragamonedaBasicos } from "./TragamonedasBasico"
+var tragamonedasBasico_1 = require("./tragamonedasBasico");
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 //QA MANUAL TESTING
 /*TEST DE LECTURA DE TXT*/
@@ -84,7 +84,7 @@ function menuIncial(usuario, casino) {
         var entrada = rls.questionInt("\nIngrese una opcion: ");
         switch (entrada) {
             case 1:
-                jugarTragamonedasBasico();
+                jugarTragamonedasBasico(casino, usuario);
                 console.log("Debe crear un usuario primero.");
                 break;
             case 2:
@@ -122,10 +122,12 @@ function menuIncial(usuario, casino) {
     }
 }
 iniciarCasino();
-function jugarTragamonedasBasico() {
-    var apuesta = rls.questionInt("\nIngrese el monto de la apuesta: ");
+function jugarTragamonedasBasico(casino, usuario) {
+    var tragamonedas = new tragamonedasBasico_1.TragamonedasBasico(casino, usuario); // Instancia correcta
+    tragamonedas.jugar(); // Ejecuta el juego
 }
 function jugarDados(casino, usuario) {
+    //CORREGIR JUEGO DE DADOS , NO PIDE APUESTA
     var miJuego = new JuegoDeDados_1.JuegoDeDados(casino, usuario);
     while (true) {
         console.log("Seleccione una opcion: ");

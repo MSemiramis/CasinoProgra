@@ -16,7 +16,7 @@ export abstract class Tragamonedas implements Juego {
 
     //METODOS//
     abstract jugar(usuario: Usuario, apuesta :number): void;
-    abstract pagarPremio(usuario :Usuario, apuesta:number ): void;
+    abstract pagarPremio(apuesta:number ): void;
     abstract restarApuesta(usuario :Usuario, apuesta:number): void;
 
     public leerReglamento(){
@@ -44,5 +44,10 @@ export abstract class Tragamonedas implements Juego {
     }
     public setMultiplicadorApuesta(multiplicadorApuesta:number){
         this.multiplicadorApuesta = multiplicadorApuesta;
+    }
+
+    //GETTER
+    public getApuestaMinima():number{
+        return this.minApuesta;
     }
 }

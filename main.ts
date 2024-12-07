@@ -6,7 +6,7 @@ import { Casino } from "./Casino";
 import * as rls from "readline-sync";
 import { JuegoDeDados } from "./JuegoDeDados";
 import { leerTXT } from "./utils/utils";
-//import { TragamonedaBasicos } from "./TragamonedasBasico"
+import { TragamonedasBasico } from "./tragamonedasBasico";
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 
 //QA MANUAL TESTING
@@ -136,11 +136,11 @@ import { leerTXT } from "./utils/utils";
 
     iniciarCasino();
 
-function jugarTragamonedasBasico(casino, usuario) {
-    const tragamonedas = new jugarTragamonedasBasico(casino, usuario);
-    tragamonedas.jugar();
-
-}
+    function jugarTragamonedasBasico(casino: Casino, usuario: Usuario): void {
+        const tragamonedas = new TragamonedasBasico(casino, usuario); // Instancia correcta
+        tragamonedas.jugar(); // Ejecuta el juego
+    }
+    
 
 function jugarDados(casino, usuario) {
     //CORREGIR JUEGO DE DADOS , NO PIDE APUESTA

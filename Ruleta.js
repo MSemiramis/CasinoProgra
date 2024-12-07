@@ -24,10 +24,6 @@ var Ruleta = /** @class */ (function () {
     Ruleta.prototype.restarApuesta = function (usuario, apuesta) {
         throw new Error("Method not implemented.");
     };
-    //METODOS
-    Ruleta.prototype.pagarPremio = function (cliente) {
-        //cliente.recibirPremio(this.premio)         VERIFICAR SI ASI NOMAS FUNCIONARIA, el método recibirPremio() del cliente debería aumentarle su atributo de dinero en ese monto
-    };
     Ruleta.prototype.pedirApuesta = function () {
         var aux = false;
         var apuesta = 0;

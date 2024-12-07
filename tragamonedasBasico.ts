@@ -5,7 +5,7 @@ import * as rls from "readline-sync";
 
 
 
-class TragamonedasBasico extends Tragamonedas{
+export class TragamonedasBasico extends Tragamonedas{
     protected casino :Casino;
     protected usuario : Usuario;
 
@@ -13,9 +13,16 @@ class TragamonedasBasico extends Tragamonedas{
         //Apuesta minima 1 para el juego basico
         //Multiplicador de ganancia 20%
         super(1, 1.20);
+        this.casino = casino;
+        this.usuario = usuario;
     }
 
-    public jugar(usuario :Usuario, apuesta:number ):void {
+    public jugar( ):void {
+        let apuesta: number = 0;
+        const saldoUsuario= this.usuario.getSaldo();
+        while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) { 
+            apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima " + this.getApuestaMinima() + "): ");
+        }
         let contador = 0;
         const partida = this.generarMatriz();
         for(let i = 0; i < 3; i++){
@@ -24,20 +31,20 @@ class TragamonedasBasico extends Tragamonedas{
                 if(fila[j] === fila[j+1] &&
                    fila[j+1] === fila[j+2]
                 ){
-                    this.pagarPremio(usuario, apuesta);
+                    this.pagarPremio(apuesta);
                 }
             }
         }
         console.log("La tirada no tiene premio");
-        this.restarApuesta(usuario, apuesta);
+        this.restarApuesta(this.usuario, apuesta);
 
     }
 
     //Verificar si estos metodos pasan al padre, se pueden reutilizar.
-    public pagarPremio(usuario :Usuario, apuesta:number ): void {
-        apuesta = apuesta * this.multiplicadorApuesta;
-        usuario.sumarApuesta(apuesta);
-        console.log("Usted a ganado un premio. Se ha pagado " + apuesta);        
+    public pagarPremio(apuesta:number ): void {
+        const premio = apuesta * this.multiplicadorApuesta;
+        this.casino.modificarSaldo(this.usuario,premio);
+        console.log("Usted a ganado un premio. Se ha pagado " + premio);        
     }
 
     public restarApuesta(usuario :Usuario, apuesta:number){

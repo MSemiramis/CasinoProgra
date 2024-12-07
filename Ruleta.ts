@@ -3,7 +3,7 @@ import { Juego } from "./Juego";
 import { Usuario} from "./Usuario";
 import * as rls from "readline-sync";
 
-export class Ruleta implements Juego {
+export class Ruleta  {
     protected casino : Casino;
     protected usuario : Usuario;
     protected apuesta: number;
@@ -34,11 +34,6 @@ export class Ruleta implements Juego {
     }
     restarApuesta(usuario: Usuario, apuesta: number): void {
         throw new Error("Method not implemented.");
-    }
-    
-    //METODOS
-    public pagarPremio(cliente: Usuario): void {
-        //cliente.recibirPremio(this.premio)         VERIFICAR SI ASI NOMAS FUNCIONARIA, el método recibirPremio() del cliente debería aumentarle su atributo de dinero en ese monto
     }
 
     public pedirApuesta(): void {
