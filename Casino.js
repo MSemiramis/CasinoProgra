@@ -15,6 +15,7 @@ var Casino = /** @class */ (function () {
         if (this.usuarios && this.usuarios.length > 0) {
             var data = {
                 usuarios: this.usuarios,
+                contador: this.contador,
             };
             fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
             console.log("Datos Actualizados.");
@@ -56,6 +57,7 @@ var Casino = /** @class */ (function () {
             this.usuarios = data.usuarios.map(function (u) {
                 return new Usuario_1.Usuario(u.id, u.nombreUsuario, u.pass, u.saldo);
             });
+            this.contador = parseInt(data.contador);
             console.log("Datos cargados correctamente.");
         }
         else {

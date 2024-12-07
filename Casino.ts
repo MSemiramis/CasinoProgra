@@ -17,6 +17,7 @@ export class Casino{
         if (this.usuarios && this.usuarios.length > 0) {
             const data = {
                 usuarios: this.usuarios,
+                contador: this.contador,
         };
 
         fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
@@ -69,6 +70,7 @@ export class Casino{
                 u.pass, 
                 u.saldo
             ));
+            this.contador = parseInt(data.contador);
             console.log("Datos cargados correctamente.");
           } else {
             console.warn("No se encontró el archivo de datos. Se inicializa vacío.");

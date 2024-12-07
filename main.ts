@@ -1,11 +1,11 @@
 //import { leerTXT } from "./utils/utils";
 import { Ruleta } from "./Ruleta";
-import { MiJuegoDeDados } from './MiJuegoDeDados';
 import { Usuario } from "./Usuario";
 import { Tragamonedas } from "./Tragamonedas";
 import { Casino } from "./Casino";
 import * as rls from "readline-sync";
 import { JuegoDeDados } from "./JuegoDeDados";
+import { leerTXT } from "./utils/utils";
 //import { TragamonedaBasicos } from "./TragamonedasBasico"
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 
@@ -97,7 +97,7 @@ import { JuegoDeDados } from "./JuegoDeDados";
             let entrada: number = rls.questionInt("\nIngrese una opcion: ");
             switch (entrada) {
                 case 1:
-                    jugarTragamonedasBasico();
+                    jugarTragamonedasBasico(casino, usuario);
                     console.log("Debe crear un usuario primero.");
                     break;
                 case 2:
@@ -109,11 +109,11 @@ import { JuegoDeDados } from "./JuegoDeDados";
                     else console.log("Debe crear un usuario primero.");
                     break;*/
                 case 4:
-                    jugarDados();
+                    jugarDados(casino, usuario);
                     console.log("Debe crear un usuario primero.");
                     break;
                 case 5:
-                    jugarRuleta(); 
+                    jugarRuleta(usuario, casino); 
                     console.log("Debe crear un usuario primero.");
                     break;
                 case 6:
@@ -136,15 +136,38 @@ import { JuegoDeDados } from "./JuegoDeDados";
 
     iniciarCasino();
 
-function jugarTragamonedasBasico() {
-    let apuesta: number = rls.questionInt("\nIngrese el monto de la apuesta: ");
+function jugarTragamonedasBasico(casino, usuario) {
+    const tragamonedas = new jugarTragamonedasBasico(casino, usuario);
+    tragamonedas.jugar();
+
 }
 
-function jugarDados() {
-    const miJuego = new JuegoDeDados();
-    miJuego.tirarDados();
-    console.log(`El resultado de los dados es: ${miJuego.sumarDados()}`);
-    rls.question("Presione Enter para continuar...");
+function jugarDados(casino, usuario) {
+    //CORREGIR JUEGO DE DADOS , NO PIDE APUESTA
+    const miJuego = new JuegoDeDados(casino, usuario);
+    while(true){
+        console.log(`Seleccione una opcion: `);
+        console.log("1: Leer reglas.");  
+        console.log("2: Juagr partida.");          
+        console.log("3: Volver atras.");
+
+        let entrada: number = rls.questionInt("\nIngrese una opcion: ");
+
+        switch (entrada) {
+            case 1:
+                leerTXT('./instructivos/dados.txt')
+                break;
+            case 2:
+                miJuego.jugarPartida();
+                break;
+            case 3:
+                menuIncial(casino,usuario);
+                break;
+            default:
+                jugarDados(casino, usuario);
+                break;
+        }
+    }
 }
 
 /*------------------------------------------------TragaMonedas------------------------------------------------------
@@ -176,12 +199,12 @@ imprimirMatriz(generarMatriz());*/
 let apuestaMin: number = 100;
 
 
-function jugarRuleta() {
-    let ruleta: Ruleta = new Ruleta(100);
+function jugarRuleta(usuario:Usuario, casino:Casino) {
+    let ruleta: Ruleta = new Ruleta(100, casino, usuario);
     let elegirApuesta: number = menuRuleta(ruleta); 
 
     while (elegirApuesta !== 0) { 
-        modoDeJuego(elegirApuesta, ruleta); 
+        modoDeJuego(elegirApuesta, ruleta, usuario); 
         elegirApuesta = menuRuleta(ruleta); 
     }
     
@@ -220,7 +243,7 @@ function menuRuleta(r : Ruleta): number{
     return entrada;
 }
 
-function modoDeJuego(tipoApuesta: number, ruleta : Ruleta) {
+function modoDeJuego(tipoApuesta: number, ruleta : Ruleta, usuario :Usuario) {
     switch(tipoApuesta) {
         case 1: //Numero solo
             ruleta.pedirApuesta();

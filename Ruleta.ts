@@ -1,8 +1,11 @@
+import { Casino } from "./Casino";
 import { Juego } from "./Juego"; 
 import { Usuario} from "./Usuario";
 import * as rls from "readline-sync";
 
 export class Ruleta implements Juego {
+    protected casino : Casino;
+    protected usuario : Usuario;
     protected apuesta: number;
     protected numeroApostado: number;
     protected numeroGanador: number;
@@ -20,8 +23,10 @@ export class Ruleta implements Juego {
     protected lineas: number [][] = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18], [19, 20, 21], [22, 23, 24], [25, 26, 27], [28, 29, 30], [31, 32, 33], [34, 35, 36]];
     protected columnas: number [][] = [[1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34], [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35], [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]];
 
-    constructor (apuestaMinima: number) {
+    constructor (apuestaMinima: number, casino :Casino, usuario : Usuario) {
         this.apuestaMinima = apuestaMinima;
+        this.casino = casino;
+        this.usuario = usuario;
     }
 
     jugar(usuario: Usuario, apuesta: number): void {
@@ -37,11 +42,14 @@ export class Ruleta implements Juego {
     }
 
     public pedirApuesta(): void {
+        let aux = false;
         let apuesta: number = 0;
-        while (apuesta < this.getApuestaMinima()) {
+        const saldoUsuario= this.usuario.getSaldo();//1000
+        while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) { 
             apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima " + this.getApuestaMinima() + "): ");
         }
         this.setApuesta(apuesta);
+        
         return 
     }
 
@@ -60,13 +68,16 @@ export class Ruleta implements Juego {
         this.setPremio();
     }
 
-    private jugarRuleta(comparacion: any, ): void {
+    private jugarRuleta(comparacion: any): void {
         if (comparacion) {
             console.log(`Felicitaciones! Has ganado. Tu premio es de $ ${this.getPremio()}`);
+            this.casino.modificarSaldo(this.usuario, this.getPremio());
             //this.pagarPremio(¿?);     A que cliente se lo mando?? habria que ver como traer al cliente o cambiar el metodo pagarPremio()
         } else {
-            console.log("Esta vez no se dió! Mejor suerte para la próxima!")
+            console.log("Esta vez no se dió! Mejor suerte para la próxima!");
+            this.casino.modificarSaldo(this.usuario, -this.getApuesta() );
         }
+        console.log(this.usuario.getSaldo());
         return
     }
 

@@ -5,6 +5,7 @@ var Ruleta_1 = require("./Ruleta");
 var Casino_1 = require("./Casino");
 var rls = require("readline-sync");
 var JuegoDeDados_1 = require("./JuegoDeDados");
+var utils_1 = require("./utils/utils");
 //import { TragamonedaBasicos } from "./TragamonedasBasico"
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 //QA MANUAL TESTING
@@ -83,7 +84,7 @@ function menuIncial(usuario, casino) {
         var entrada = rls.questionInt("\nIngrese una opcion: ");
         switch (entrada) {
             case 1:
-                jugarTragamonedas();
+                jugarTragamonedasBasico();
                 console.log("Debe crear un usuario primero.");
                 break;
             case 2:
@@ -95,11 +96,11 @@ function menuIncial(usuario, casino) {
             else console.log("Debe crear un usuario primero.");
             break;*/
             case 4:
-                jugarDados();
+                jugarDados(casino, usuario);
                 console.log("Debe crear un usuario primero.");
                 break;
             case 5:
-                jugarRuleta();
+                jugarRuleta(usuario, casino);
                 console.log("Debe crear un usuario primero.");
                 break;
             case 6:
@@ -121,15 +122,32 @@ function menuIncial(usuario, casino) {
     }
 }
 iniciarCasino();
-function jugarTragamonedas() {
-    // Lógica para tragamonedas
-    console.log("Iniciando Tragamonedas...");
+function jugarTragamonedasBasico() {
+    var apuesta = rls.questionInt("\nIngrese el monto de la apuesta: ");
 }
-function jugarDados() {
-    var miJuego = new JuegoDeDados_1.JuegoDeDados();
-    miJuego.tirarDados();
-    console.log("El resultado de los dados es: ".concat(miJuego.sumarDados()));
-    rls.question("Presione Enter para continuar...");
+function jugarDados(casino, usuario) {
+    var miJuego = new JuegoDeDados_1.JuegoDeDados(casino, usuario);
+    while (true) {
+        console.log("Seleccione una opcion: ");
+        console.log("1: Leer reglas.");
+        console.log("2: Juagr partida.");
+        console.log("3: Volver atras.");
+        var entrada = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                (0, utils_1.leerTXT)('./instructivos/dados.txt');
+                break;
+            case 2:
+                miJuego.jugarPartida();
+                break;
+            case 3:
+                menuIncial(casino, usuario);
+                break;
+            default:
+                jugarDados(casino, usuario);
+                break;
+        }
+    }
 }
 /*------------------------------------------------TragaMonedas------------------------------------------------------
 
@@ -157,11 +175,11 @@ function imprimirMatriz(matriz){
 imprimirMatriz(generarMatriz());*/
 //------------------------------------------------Ruleta------------------------------------------------------
 var apuestaMin = 100;
-function jugarRuleta() {
-    var ruleta = new Ruleta_1.Ruleta(100);
+function jugarRuleta(usuario, casino) {
+    var ruleta = new Ruleta_1.Ruleta(100, casino, usuario);
     var elegirApuesta = menuRuleta(ruleta);
     while (elegirApuesta !== 0) {
-        modoDeJuego(elegirApuesta, ruleta);
+        modoDeJuego(elegirApuesta, ruleta, usuario);
         elegirApuesta = menuRuleta(ruleta);
     }
     console.log("Volviendo al menú principal.");
@@ -190,7 +208,7 @@ function menuRuleta(r) {
     var entrada = rls.questionInt("\nIngrese una opcion: ");
     return entrada;
 }
-function modoDeJuego(tipoApuesta, ruleta) {
+function modoDeJuego(tipoApuesta, ruleta, usuario) {
     switch (tipoApuesta) {
         case 1: //Numero solo
             ruleta.pedirApuesta();
