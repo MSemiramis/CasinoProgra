@@ -7,6 +7,7 @@ var rls = require("readline-sync");
 var JuegoDeDados_1 = require("./JuegoDeDados");
 var utils_1 = require("./utils/utils");
 var tragamonedasBasico_1 = require("./tragamonedasBasico");
+var TragamonedasLinea_1 = require("./TragamonedasLinea");
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 //QA MANUAL TESTING
 /*TEST DE LECTURA DE TXT*/
@@ -85,12 +86,10 @@ function menuIncial(usuario, casino) {
         switch (entrada) {
             case 1:
                 jugarTragamonedasBasico(casino, usuario);
-                console.log("Debe crear un usuario primero.");
                 break;
             case 2:
-            /*jugarDados();
-            console.log("Debe crear un usuario primero.");
-            break;*/
+                jugarTragamonedasLinea(casino, usuario);
+                break;
             case 3:
             /*if (usuario) jugarDados();
             else console.log("Debe crear un usuario primero.");
@@ -124,7 +123,53 @@ function menuIncial(usuario, casino) {
 iniciarCasino();
 function jugarTragamonedasBasico(casino, usuario) {
     var tragamonedas = new tragamonedasBasico_1.TragamonedasBasico(casino, usuario); // Instancia correcta
-    tragamonedas.jugar(); // Ejecuta el juego
+    while (true) {
+        console.log(" ");
+        console.log("Seleccione una opcion: ");
+        console.log("1: Leer reglas.");
+        console.log("2: Juagr partida Basica");
+        console.log("3: Volver atras.");
+        var entrada = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                (0, utils_1.leerTXT)('./instructivos/tragamonedas.txt');
+                break;
+            case 2:
+                tragamonedas.jugar();
+                break;
+            case 3:
+                menuIncial(usuario, casino);
+                break;
+            default:
+                jugarTragamonedasBasico(casino, usuario);
+                break;
+        }
+    }
+}
+function jugarTragamonedasLinea(casino, usuario) {
+    var tragamonedas = new TragamonedasLinea_1.TragamonedasLinea(casino, usuario); // Instancia correcta
+    while (true) {
+        console.log(" ");
+        console.log("Seleccione una opcion: ");
+        console.log("1: Leer reglas.");
+        console.log("2: Juagr partida por Linea.");
+        console.log("3: Volver atras.");
+        var entrada = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                (0, utils_1.leerTXT)('./instructivos/tragamonedas.txt');
+                break;
+            case 2:
+                tragamonedas.jugar();
+                break;
+            case 3:
+                menuIncial(usuario, casino);
+                break;
+            default:
+                jugarTragamonedasLinea(casino, usuario);
+                break;
+        }
+    }
 }
 function jugarDados(casino, usuario) {
     //CORREGIR JUEGO DE DADOS , NO PIDE APUESTA
@@ -151,32 +196,6 @@ function jugarDados(casino, usuario) {
         }
     }
 }
-/*------------------------------------------------TragaMonedas------------------------------------------------------
-
-function imprimirMatriz(matriz){
-    console.log(" ");
-    console.log("-------------------");
-    for (let i = 0; i < matriz.length; i++) {
-        console.log(" | " + matriz[i].join(" ")   + " | ");  // Imprime cada fila unida por un espacio
-    }
-    console.log("-------------------");
-}
-
-// imprimirMatriz();
-    for(let i=0; i<3; i++ ){
-        let fila:string [] = [];
-        for(let j=0; j<5; j++){
-            let indice = Math.floor(Math.random()*simbolos.length);
-            fila.push(simbolos[indice]);
-        }
-    salida.push(fila);
-    }
-    return salida;
-}
-
-imprimirMatriz(generarMatriz());*/
-//------------------------------------------------Ruleta------------------------------------------------------
-var apuestaMin = 100;
 function jugarRuleta(usuario, casino) {
     var ruleta = new Ruleta_1.Ruleta(100, casino, usuario);
     var elegirApuesta = menuRuleta(ruleta);

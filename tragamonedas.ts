@@ -17,7 +17,7 @@ export abstract class Tragamonedas implements Juego {
     //METODOS//
     abstract jugar(usuario: Usuario, apuesta :number): void;
     abstract pagarPremio(apuesta:number ): void;
-    abstract restarApuesta(usuario :Usuario, apuesta:number): void;
+    abstract restarApuesta(apuesta:number): void;
 
     public leerReglamento(){
         leerTXT('./instructivos/tragamonedas.txt');

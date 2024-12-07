@@ -15,56 +15,57 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TragamonedasBasico = void 0;
+exports.TragamonedasLinea = void 0;
 var Tragamonedas_1 = require("./Tragamonedas");
 var rls = require("readline-sync");
-var TragamonedasBasico = /** @class */ (function (_super) {
-    __extends(TragamonedasBasico, _super);
-    function TragamonedasBasico(casino, usuario) {
+var TragamonedasLinea = /** @class */ (function (_super) {
+    __extends(TragamonedasLinea, _super);
+    function TragamonedasLinea(casino, usuario) {
         //Apuesta minima 1 para el juego basico
         //Multiplicador de ganancia 20%
-        var _this = _super.call(this, 10, 2) || this;
+        var _this = _super.call(this, 50, 8) || this;
         _this.casino = casino;
         _this.usuario = usuario;
         return _this;
     }
-    TragamonedasBasico.prototype.jugar = function () {
+    TragamonedasLinea.prototype.jugar = function () {
         var apuesta = 0;
         var saldoUsuario = this.usuario.getSaldo();
         while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) {
-            apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima " + this.getApuestaMinima() + "): ");
+            apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima ".concat(this.getApuestaMinima(), "): "));
         }
-        var contador = 0;
-        var partida = this.generarMatriz();
+        var tienePremio = false;
+        var partida = [
+            ['9', 'K', 'A', 'J', 'K'],
+            ['K', 'K', 'K', 'K', 'K'],
+            ['Q', '10', 'J', 'J', '10']
+        ];
         console.log(partida);
-        for (var i = 0; i < 3; i++) {
+        var _loop_1 = function (i) {
             var fila = partida[i];
-            for (var j = 0; j < fila.length - 2; j++) {
-                if (fila[j] === fila[j + 1] &&
-                    fila[j + 1] === fila[j + 2]) {
-                    contador++;
-                }
-                else {
-                }
+            if (fila.every(function (valor) { return valor === fila[0]; })) {
+                tienePremio = true;
+                this_1.pagarPremio(apuesta);
             }
+        };
+        var this_1 = this;
+        for (var i = 0; i < partida.length; i++) {
+            _loop_1(i);
         }
-        if (contador > 0) {
-            this.pagarPremio(apuesta);
-        }
-        else {
-            console.log("La tirada no tiene premio");
+        if (!tienePremio) {
+            console.log("La tirada no tiene premio.");
             this.restarApuesta(apuesta);
         }
     };
     //Verificar si estos metodos pasan al padre, se pueden reutilizar.
-    TragamonedasBasico.prototype.pagarPremio = function (apuesta) {
-        var premio = apuesta * this.multiplicadorApuesta;
+    TragamonedasLinea.prototype.pagarPremio = function (apuesta) {
+        var premio = (apuesta * this.multiplicadorApuesta) - apuesta;
         this.casino.modificarSaldo(this.usuario, premio);
         console.log("Usted a ganado un premio. Se ha pagado " + premio);
     };
-    TragamonedasBasico.prototype.restarApuesta = function (apuesta) {
+    TragamonedasLinea.prototype.restarApuesta = function (apuesta) {
         this.casino.modificarSaldo(this.usuario, -apuesta);
     };
-    return TragamonedasBasico;
+    return TragamonedasLinea;
 }(Tragamonedas_1.Tragamonedas));
-exports.TragamonedasBasico = TragamonedasBasico;
+exports.TragamonedasLinea = TragamonedasLinea;

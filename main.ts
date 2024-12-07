@@ -7,6 +7,8 @@ import * as rls from "readline-sync";
 import { JuegoDeDados } from "./JuegoDeDados";
 import { leerTXT } from "./utils/utils";
 import { TragamonedasBasico } from "./tragamonedasBasico";
+import { TragamonedasLinea } from "./TragamonedasLinea";
+import { TragamonedasCantidad } from "./TragamonedasCantidad";
 //let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 
 //QA MANUAL TESTING
@@ -98,16 +100,13 @@ import { TragamonedasBasico } from "./tragamonedasBasico";
             switch (entrada) {
                 case 1:
                     jugarTragamonedasBasico(casino, usuario);
-                    console.log("Debe crear un usuario primero.");
                     break;
                 case 2:
-                    /*jugarDados();
-                    console.log("Debe crear un usuario primero.");
-                    break;*/
+                    jugarTragamonedasLinea(casino, usuario);
+                    break;
                 case 3:
-                    /*if (usuario) jugarDados();
-                    else console.log("Debe crear un usuario primero.");
-                    break;*/
+                    jugarTragamonedasCantidad(casino, usuario);
+                    break;
                 case 4:
                     jugarDados(casino, usuario);
                     console.log("Debe crear un usuario primero.");
@@ -136,10 +135,84 @@ import { TragamonedasBasico } from "./tragamonedasBasico";
 
     iniciarCasino();
 
-    function jugarTragamonedasBasico(casino: Casino, usuario: Usuario): void {
-        const tragamonedas = new TragamonedasBasico(casino, usuario); // Instancia correcta
-        tragamonedas.jugar(); // Ejecuta el juego
+function jugarTragamonedasBasico(casino: Casino, usuario: Usuario): void {
+    const tragamonedas = new TragamonedasBasico(casino, usuario); // Instancia correcta
+    while(true){
+        console.log(" ");
+        console.log(`Seleccione una opcion: `);
+        console.log("1: Leer reglas.");  
+        console.log("2: Juagr partida Basica");          
+        console.log("3: Volver atras.");
+        let entrada: number = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                leerTXT('./instructivos/tragamonedas.txt')
+                break;
+            case 2:
+                tragamonedas.jugar();
+                break;
+            case 3:
+                menuIncial(usuario, casino);
+                break;
+            default:
+                jugarTragamonedasBasico(casino, usuario);
+                break;
+        }
     }
+}
+
+function jugarTragamonedasLinea(casino: Casino, usuario: Usuario): void {
+    const tragamonedas = new TragamonedasLinea(casino, usuario); // Instancia correcta
+    while(true){
+        console.log(" ");
+        console.log(`Seleccione una opcion: `);
+        console.log("1: Leer reglas.");  
+        console.log("2: Juagr partida por Linea.");          
+        console.log("3: Volver atras.");
+        let entrada: number = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                leerTXT('./instructivos/tragamonedas.txt')
+                break;
+            case 2:
+                tragamonedas.jugar();
+                break;
+            case 3:
+                menuIncial(usuario, casino);
+                break;
+            default:
+                jugarTragamonedasLinea(casino, usuario);
+                break;
+        }
+    }
+}
+
+function jugarTragamonedasCantidad(casino: Casino, usuario: Usuario): void {
+    const tragamonedas = new TragamonedasCantidad(casino, usuario); // Instancia correcta
+    while(true){
+        console.log(" ");
+        console.log(`Seleccione una opcion: `);
+        console.log("1: Leer reglas.");  
+        console.log("2: Juagr partida por Linea.");          
+        console.log("3: Volver atras.");
+        let entrada: number = rls.questionInt("\nIngrese una opcion: ");
+        switch (entrada) {
+            case 1:
+                leerTXT('./instructivos/tragamonedas.txt')
+                break;
+            case 2:
+                tragamonedas.jugar();
+                break;
+            case 3:
+                menuIncial(usuario, casino);
+                break;
+            default:
+                jugarTragamonedasLinea(casino, usuario);
+                break;
+        }
+    }
+}
+
     
 
 function jugarDados(casino, usuario) {
@@ -169,34 +242,6 @@ function jugarDados(casino, usuario) {
         }
     }
 }
-
-/*------------------------------------------------TragaMonedas------------------------------------------------------
-
-function imprimirMatriz(matriz){
-    console.log(" ");
-    console.log("-------------------");   
-    for (let i = 0; i < matriz.length; i++) {
-        console.log(" | " + matriz[i].join(" ")   + " | ");  // Imprime cada fila unida por un espacio
-    }
-    console.log("-------------------"); 
-}
-
-// imprimirMatriz();
-    for(let i=0; i<3; i++ ){
-        let fila:string [] = [];
-        for(let j=0; j<5; j++){
-            let indice = Math.floor(Math.random()*simbolos.length);
-            fila.push(simbolos[indice]);
-        }
-    salida.push(fila);
-    }
-    return salida;
-}
-
-imprimirMatriz(generarMatriz());*/
-
-//------------------------------------------------Ruleta------------------------------------------------------
-let apuestaMin: number = 100;
 
 
 function jugarRuleta(usuario:Usuario, casino:Casino) {
