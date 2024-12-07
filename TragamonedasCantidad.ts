@@ -28,6 +28,14 @@ export class TragamonedasCantidad extends Tragamonedas{
         let tienePremio = false;
         const partida = this.generarMatriz();
 
+        /*
+        [
+        [ '9', 'K', 'A', 'J', 'K' ],
+        [ 'K', 'K', 'K', 'K', 'K' ],
+        [ 'Q', 'K', 'J', 'K', 'K' ]
+                        ]
+        */
+
         console.log(partida);
         const contador: { [key: string]: number } = {};
 
