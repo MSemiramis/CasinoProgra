@@ -1,10 +1,10 @@
-import { Casino } from "./casino"; //Poner el nombre correspondiente y borrar el archivo Casino si no sirve
-import { Persona } from "./persona"; //Poner el nombre correspondiente y borrar el archivo Persona si no sirve
+import { Casino } from "./Casino";
+import { Usuario} from "./Usuario";
 import * as rls from "readline-sync";
 
-// Persona deberia ser el jugador y tener métodos para administrar su dinero por lo menos
-
-export class Ruleta extends Casino {
+export class Ruleta  {
+    protected casino : Casino;
+    protected usuario : Usuario;
     protected apuesta: number;
     protected numeroApostado: number;
     protected numeroGanador: number;
@@ -22,23 +22,19 @@ export class Ruleta extends Casino {
     protected lineas: number [][] = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18], [19, 20, 21], [22, 23, 24], [25, 26, 27], [28, 29, 30], [31, 32, 33], [34, 35, 36]];
     protected columnas: number [][] = [[1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34], [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35], [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]];
 
-    constructor (apuestaMinima: number) {
-        super();
+    constructor (apuestaMinima: number, casino :Casino, usuario : Usuario) {
         this.apuestaMinima = apuestaMinima;
-    }
-    
-    //METODOS
-    public pagarPremio(cliente: Persona): void {
-        //cliente.recibirPremio(this.premio)         VERIFICAR SI ASI NOMAS FUNCIONARIA, el método recibirPremio() del cliente debería aumentarle su atributo de dinero en ese monto
+        this.casino = casino;
+        this.usuario = usuario;
     }
 
     public pedirApuesta(): void {
         let apuesta: number = 0;
-        while (apuesta < this.getApuestaMinima()) {
+        const saldoUsuario= this.usuario.getSaldo();
+        while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) { 
             apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima " + this.getApuestaMinima() + "): ");
         }
         this.setApuesta(apuesta);
-        return
     }
 
     private encontrarArreglo(arreglo: number[][], numeroBuscado: number): number {
@@ -59,11 +55,12 @@ export class Ruleta extends Casino {
     private jugarRuleta(comparacion: any): void {
         if (comparacion) {
             console.log(`Felicitaciones! Has ganado. Tu premio es de $ ${this.getPremio()}`);
-            //this.pagarPremio(¿?);     A que cliente se lo mando?? habria que ver como traer al cliente o cambiar el metodo pagarPremio()
+            this.casino.modificarSaldo(this.usuario, this.getPremio());
         } else {
-            console.log("Esta vez no se dió! Mejor suerte para la próxima!")
+            console.log("Esta vez no se dió! Mejor suerte para la próxima!");
+            this.casino.modificarSaldo(this.usuario, -this.getApuesta() );
         }
-        return
+        console.log("Saldo actual: " + this.usuario.getSaldo());
     }
 
     public apostarNumSimpleReducido(): void {
@@ -182,7 +179,7 @@ export class Ruleta extends Casino {
     }
 
     public setNumeroGanador(): void {
-        this.numeroGanador = Math.floor(Math.random() * 36);
+        this.numeroGanador = Math.floor(Math.random() * 37);
     }
 
     //GETTERS
