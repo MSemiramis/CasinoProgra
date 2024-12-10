@@ -1,4 +1,4 @@
-//import { leerTXT } from "./utils/utils";
+
 import { Ruleta } from "./Ruleta";
 import { Usuario } from "./Usuario";
 import { Tragamonedas } from "./Tragamonedas";
@@ -9,14 +9,7 @@ import { leerTXT } from "./utils/utils";
 import { TragamonedasBasico } from "./tragamonedasBasico";
 import { TragamonedasLinea } from "./TragamonedasLinea";
 import { TragamonedasCantidad } from "./TragamonedasCantidad";
-//let tragamonedasBasico : Tragamonedas = new tragamonedasBasicos();
 
-//QA MANUAL TESTING
-
-
-/*TEST DE LECTURA DE TXT*/
-//leerTXT('./instructivos/tragamonedas.txt');
-//leerTXT('./instructivos/dados.txt');
 
     function inicioConsola(){
         console.clear();
@@ -79,7 +72,6 @@ import { TragamonedasCantidad } from "./TragamonedasCantidad";
           }
         }
       
-        //si el usuiario es correcto que muestre el menu de juegos
         menuIncial(usuario, casino);
       }
 
@@ -216,7 +208,7 @@ function jugarTragamonedasCantidad(casino: Casino, usuario: Usuario): void {
     
 
 function jugarDados(casino, usuario) {
-    //CORREGIR JUEGO DE DADOS , NO PIDE APUESTA
+
     const miJuego = new JuegoDeDados(casino, usuario);
     while(true){
         console.log(`Seleccione una opcion: `);

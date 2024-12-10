@@ -1,12 +1,15 @@
 import { leerTXT } from "./utils/utils";
 import { Juego } from "./Juego";
 import { Usuario } from "./Usuario";
+import { Casino } from "./Casino";
 
 export abstract class Tragamonedas implements Juego {
 
     protected simbolos: any [] = ["9", "10", "J", "Q", "K", "A"] ;
     protected minApuesta:number;
     protected multiplicadorApuesta:number;
+    protected casino :Casino;
+    protected usuario : Usuario;
 
     constructor(minApuesta:number, multiplicadorApuesta:number){
         this.simbolos = this.simbolos;
@@ -45,9 +48,26 @@ export abstract class Tragamonedas implements Juego {
     public setMultiplicadorApuesta(multiplicadorApuesta:number){
         this.multiplicadorApuesta = multiplicadorApuesta;
     }
+    setUsuario (usuario:Usuario){
+        this.usuario = usuario;
+    }
+    setCasino(casino:Casino){
+        this.casino = casino;
+    }
 
     //GETTER
     public getApuestaMinima():number{
         return this.minApuesta;
     }
+    public getMultiplicadorApuesta(){
+        return this.multiplicadorApuesta;
+    }
+    getUsuario(){
+        return this.usuario;
+    }
+    getCasino(){
+        return this.casino;
+    }
+
+
 }

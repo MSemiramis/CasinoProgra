@@ -38,13 +38,6 @@ export class Usuario{
         return this.saldo;
     }
 
-    sumarApuesta(premio:number){
-        this.saldo = this.saldo + premio;
-    }
-    restarApuesta(apuesta:number){
-        this.saldo = this.saldo - apuesta;
-    }
-
     public validarPass(pass: string): boolean {
         return this.pass === pass;
     }

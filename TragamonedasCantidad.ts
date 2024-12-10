@@ -4,10 +4,7 @@ import { Usuario } from "./Usuario";
 import * as rls from "readline-sync";
 
 
-
 export class TragamonedasCantidad extends Tragamonedas{
-    protected casino :Casino;
-    protected usuario : Usuario;
 
     constructor(casino:Casino, usuario :Usuario){
         //Apuesta minima 1 para el juego basico
@@ -66,8 +63,6 @@ export class TragamonedasCantidad extends Tragamonedas{
             this.restarApuesta(apuesta);
         }
     }
-    
-    
 
     //Verificar si estos metodos pasan al padre, se pueden reutilizar.
     public pagarPremio(apuesta:number ): void {
