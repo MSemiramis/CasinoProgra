@@ -11,8 +11,8 @@ export class Casino{
         this.contador = 0;
         this.cargarDesdeJSON();
     }
-    
     //Funciones para JSON
+
     public guardarEnJSON(): void {
         if (this.usuarios && this.usuarios.length > 0) {
             const data = {
@@ -38,9 +38,8 @@ export class Casino{
             console.log("Usuario no encontrado en el sistema.");
             return;
         }
-
         const nuevoSaldo = usuario.getSaldo() + monto;
-        if (nuevoSaldo <= 0) {
+        if (nuevoSaldo < 0) {
             console.log(
                 "Usuario sin saldo. Por favor, cargar saldo para seguir jugando en Casino La Gaita."
             );
@@ -55,41 +54,6 @@ export class Casino{
         }
         this.guardarEnJSON();
     }
-
-    //Modificar el saldo con switch. Como pidio Sofia
-
-    /*public modificarSaldo(usuario: Usuario, monto: number): void {
-        if (!usuario) {
-            console.log("Error de ejecución, usuario inválido.");
-            return;
-        }
-    
-        const indice = this.usuarios.findIndex((u) => u.getId() == usuario.getId());
-        if (indice == -1) {
-            console.log("Usuario no encontrado en el sistema.");
-            return;
-        }
-    
-        const nuevoSaldo = usuario.getSaldo() + monto;
-        switch (true) {
-            case nuevoSaldo <= 0:
-                console.log(
-                    "Usuario sin saldo. Por favor, cargar saldo para seguir jugando en Casino La Gaita."
-                );
-                this.usuarios[indice].setSaldo(0);
-                break;
-            case nuevoSaldo > 0:
-                console.log("Su saldo actual es " + nuevoSaldo);
-                this.usuarios[indice].setSaldo(nuevoSaldo);
-                break;
-            case nuevoSaldo === 0:
-                console.log(
-                    "Error en el saldo. Contactar a soporte de Casino La Gaita."
-                );
-                break;
-        }
-        this.guardarEnJSON();
-    }*/
 
     public verificarUsuario(nombreUsuario: string): Usuario | undefined {
         return this.usuarios.find(
@@ -143,3 +107,5 @@ export class Casino{
         return this.contador;
     }
 }
+
+
