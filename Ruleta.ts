@@ -63,7 +63,7 @@ export class Ruleta  {
         console.log("Saldo actual: " + this.usuario.getSaldo());
     }
 
-    public apostarNumSimpleReducido(): void {
+    public apostarNumSimple(): void {
         this.setNumeroApostado();
         this.armarJuego(3);
         console.log("\nGirando la ruleta...");

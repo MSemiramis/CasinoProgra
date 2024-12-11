@@ -50,7 +50,7 @@ var Ruleta = /** @class */ (function () {
         }
         console.log("Saldo actual: " + this.usuario.getSaldo());
     };
-    Ruleta.prototype.apostarNumSimpleReducido = function () {
+    Ruleta.prototype.apostarNumSimple = function () {
         this.setNumeroApostado();
         this.armarJuego(3);
         console.log("\nGirando la ruleta...");

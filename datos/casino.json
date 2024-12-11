@@ -1,0 +1,41 @@
+{
+  "usuarios": [
+    {
+      "id": "U1",
+      "nombreUsuario": "semi",
+      "saldo": 25000,
+      "pass": "1234"
+    },
+    {
+      "id": "U2",
+      "nombreUsuario": "enzo",
+      "saldo": 50000,
+      "pass": "1234"
+    },
+    {
+      "id": "U3",
+      "nombreUsuario": "ziba",
+      "saldo": 15000,
+      "pass": "1234"
+    },
+    {
+      "id": "U4",
+      "nombreUsuario": "pepo",
+      "saldo": 37000,
+      "pass": "1234"
+    },
+    {
+      "id": "U5",
+      "nombreUsuario": "sandra",
+      "saldo": 7500,
+      "pass": "1234"
+    },
+    {
+      "id": "U6",
+      "nombreUsuario": "apolo",
+      "saldo": 24150,
+      "pass": "1234"
+    }
+  ],
+  "contador": 6
+}

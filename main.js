@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Ruleta_1 = require("./Ruleta");
-//import { Tragamonedas } from "./Tragamonedas"; Tira error porque dice que nunca se usa
 var Casino_1 = require("./Casino");
 var rls = require("readline-sync");
 var JuegoDeDados_1 = require("./JuegoDeDados");
@@ -9,6 +8,7 @@ var utils_1 = require("./utils/utils");
 var tragamonedasBasico_1 = require("./tragamonedasBasico");
 var TragamonedasLinea_1 = require("./TragamonedasLinea");
 var TragamonedasCantidad_1 = require("./TragamonedasCantidad");
+//<-----------------------------------> INICIO <----------------------------------->
 function inicioConsola() {
     console.clear();
     console.log("==============================================================");
@@ -33,9 +33,7 @@ function iniciarSesion(casino) {
     var nombreUsuario = rls.question("Ingrese su nombre de usuario: ");
     var pass = rls.question("Ingrese su contrasenia: ");
     var usuario = casino.buscarUsuario(nombreUsuario, pass);
-    console.log(usuario);
     if (usuario) {
-        console.log("\n\u00A1Bienvenido, ".concat(usuario.getNombreUsuario, "!"));
         return usuario;
     }
     else {
@@ -75,7 +73,7 @@ function menuIncial(usuario, casino) {
         console.log("4: Jugar Dados");
         console.log("5: Jugar Ruleta");
         console.log("6: Cargar saldo");
-        console.log("0: Cerrar secion");
+        console.log("0: Cerrar sesion");
         console.log("=============Casino La Gaita=============");
         var entrada = rls.questionInt("\nIngrese una opcion: ");
         switch (entrada) {
@@ -115,7 +113,11 @@ function menuIncial(usuario, casino) {
     }
 }
 iniciarCasino();
+//<-----------------------------------> TRAGAMONEDAS <----------------------------------->
 function jugarTragamonedasBasico(casino, usuario) {
+    console.log("\n <-------------------> Tragamoneda <-------------------> \n");
+    dibujarTragamonedas();
+    console.log("\n <------------------------------------------------> \n");
     var tragamonedas = new tragamonedasBasico_1.TragamonedasBasico(casino, usuario); // Instancia correcta
     while (true) {
         console.log(" ");
@@ -141,6 +143,9 @@ function jugarTragamonedasBasico(casino, usuario) {
     }
 }
 function jugarTragamonedasLinea(casino, usuario) {
+    console.log("\n <-------------------> Tragamoneda Linea <-------------------> \n");
+    dibujarTragamonedas();
+    console.log("\n <------------------------------------------------> \n");
     var tragamonedas = new TragamonedasLinea_1.TragamonedasLinea(casino, usuario); // Instancia correcta
     while (true) {
         console.log(" ");
@@ -166,7 +171,10 @@ function jugarTragamonedasLinea(casino, usuario) {
     }
 }
 function jugarTragamonedasCantidad(casino, usuario) {
-    var tragamonedas = new TragamonedasCantidad_1.TragamonedasCantidad(casino, usuario); // Instancia correcta
+    console.log("\n <-------------------> Tragamoneda Cantidad <-------------------> \n");
+    dibujarTragamonedas();
+    console.log("\n <------------------------------------------------> \n");
+    var tragamonedas = new TragamonedasCantidad_1.TragamonedasCantidad(casino, usuario);
     while (true) {
         console.log(" ");
         console.log("Seleccione una opcion: ");
@@ -190,12 +198,16 @@ function jugarTragamonedasCantidad(casino, usuario) {
         }
     }
 }
+//<-----------------------------------> DADOS <----------------------------------->
 function jugarDados(casino, usuario) {
+    console.log("\n <-------------------> Dados <-------------------> \n");
+    dibujarDados();
+    console.log("\n <------------------------------------------------> \n");
     var miJuego = new JuegoDeDados_1.JuegoDeDados(casino, usuario);
     while (true) {
         console.log("Seleccione una opcion: ");
         console.log("1: Leer reglas.");
-        console.log("2: Juagr partida.");
+        console.log("2: Jugar partida.");
         console.log("3: Volver atras.");
         var entrada = rls.questionInt("\nIngrese una opcion: ");
         switch (entrada) {
@@ -206,7 +218,7 @@ function jugarDados(casino, usuario) {
                 miJuego.jugarPartida();
                 break;
             case 3:
-                menuIncial(casino, usuario);
+                menuIncial(usuario, casino);
                 break;
             default:
                 jugarDados(casino, usuario);
@@ -214,6 +226,7 @@ function jugarDados(casino, usuario) {
         }
     }
 }
+//<-----------------------------------> RULETA <----------------------------------->
 function jugarRuleta(usuario, casino) {
     var ruleta = new Ruleta_1.Ruleta(100, casino, usuario);
     var elegirApuesta = menuRuleta(ruleta);
@@ -251,7 +264,7 @@ function modoDeJuego(tipoApuesta, ruleta, usuario) {
     switch (tipoApuesta) {
         case 1: //Numero solo
             ruleta.pedirApuesta();
-            ruleta.apostarNumSimpleReducido();
+            ruleta.apostarNumSimple();
             volverAtras();
             break;
         case 2: //Linea horizontal
@@ -316,4 +329,25 @@ function dibujarRuleta() {
     console.log("        |      |        |        |        |");
     console.log("        |  Par | Impar  |  Rojas | Negras |");
     console.log("        |______|________|________|________|\n");
+}
+function dibujarTragamonedas() {
+    console.log(" _______________________");
+    console.log("|  [ 9 ]  [ 10 ]  [ J ] |");
+    console.log("|  [ Q ]  [ K ]   [ A ] | o ");
+    console.log("|  [ 9 ]  [ J ]   [ K ] | |");
+    console.log("|_______________________| |");
+    console.log("|  ________    _______  | |");
+    console.log("|  | SPIN  |   | BET |  |=O");
+    console.log("|_______________________|\n");
+}
+function dibujarDados() {
+    console.log("    +-------+        +--------+ ");
+    console.log("   /       /|       /  o   o /|");
+    console.log("  /   O   / |      /        / |");
+    console.log(" /       /  |     /  o   o /  |");
+    console.log("+-------+   |    +--------+   |");
+    console.log("|   O   |   +    |  O   O |   +");
+    console.log("|   O   |  /     |  O   O |  /");
+    console.log("|   O   | /      |  O   O | /");
+    console.log("+-------+        +--------+/\n");
 }

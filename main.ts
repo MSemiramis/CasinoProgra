@@ -1,7 +1,6 @@
 
 import { Ruleta } from "./Ruleta";
 import { Usuario } from "./Usuario";
-//import { Tragamonedas } from "./Tragamonedas"; Tira error porque dice que nunca se usa
 import { Casino } from "./Casino";
 import * as rls from "readline-sync";
 import { JuegoDeDados } from "./JuegoDeDados";
@@ -10,7 +9,7 @@ import { TragamonedasBasico } from "./tragamonedasBasico";
 import { TragamonedasLinea } from "./TragamonedasLinea";
 import { TragamonedasCantidad } from "./TragamonedasCantidad";
 
-
+//<-----------------------------------> INICIO <----------------------------------->
 function inicioConsola(){
     console.clear();
     console.log("==============================================================");
@@ -39,9 +38,7 @@ function iniciarSesion(casino: Casino): Usuario | null {
     const nombreUsuario = rls.question("Ingrese su nombre de usuario: ");
     const pass = rls.question("Ingrese su contrasenia: ");
     const usuario = casino.buscarUsuario(nombreUsuario, pass);
-    console.log(usuario);
     if (usuario) {
-      console.log(`\n¡Bienvenido, ${usuario.getNombreUsuario}!`);
       return usuario;
     } else {
       console.log("Usuario o contraseña incorrectos.");
@@ -126,7 +123,11 @@ function menuIncial(usuario : Usuario, casino :Casino): number{
 
 iniciarCasino();
 
+//<-----------------------------------> TRAGAMONEDAS <----------------------------------->
 function jugarTragamonedasBasico(casino: Casino, usuario: Usuario): void {
+    console.log("\n <-------------------> Tragamoneda <-------------------> \n")
+    dibujarTragamonedas();
+    console.log("\n <------------------------------------------------> \n")
     const tragamonedas = new TragamonedasBasico(casino, usuario); // Instancia correcta
     while(true){
         console.log(" ");
@@ -153,6 +154,9 @@ function jugarTragamonedasBasico(casino: Casino, usuario: Usuario): void {
 }
 
 function jugarTragamonedasLinea(casino: Casino, usuario: Usuario): void {
+    console.log("\n <-------------------> Tragamoneda Linea <-------------------> \n")
+    dibujarTragamonedas();
+    console.log("\n <------------------------------------------------> \n")
     const tragamonedas = new TragamonedasLinea(casino, usuario); // Instancia correcta
     while(true){
         console.log(" ");
@@ -179,7 +183,10 @@ function jugarTragamonedasLinea(casino: Casino, usuario: Usuario): void {
 }
 
 function jugarTragamonedasCantidad(casino: Casino, usuario: Usuario): void {
-    const tragamonedas = new TragamonedasCantidad(casino, usuario); // Instancia correcta
+    console.log("\n <-------------------> Tragamoneda Cantidad <-------------------> \n")
+    dibujarTragamonedas();
+    console.log("\n <------------------------------------------------> \n")
+    const tragamonedas = new TragamonedasCantidad(casino, usuario);
     while(true){
         console.log(" ");
         console.log(`Seleccione una opcion: `);
@@ -204,10 +211,11 @@ function jugarTragamonedasCantidad(casino: Casino, usuario: Usuario): void {
     }
 }
 
-    
-
+//<-----------------------------------> DADOS <----------------------------------->
 function jugarDados(casino, usuario) {
-
+    console.log("\n <-------------------> Dados <-------------------> \n")
+    dibujarDados();
+    console.log("\n <------------------------------------------------> \n")
     const miJuego = new JuegoDeDados(casino, usuario);
     while(true){
         console.log(`Seleccione una opcion: `);
@@ -225,7 +233,7 @@ function jugarDados(casino, usuario) {
                 miJuego.jugarPartida();
                 break;
             case 3:
-                menuIncial(casino,usuario);
+                menuIncial(usuario,casino);
                 break;
             default:
                 jugarDados(casino, usuario);
@@ -234,7 +242,7 @@ function jugarDados(casino, usuario) {
     }
 }
 
-
+//<-----------------------------------> RULETA <----------------------------------->
 function jugarRuleta(usuario:Usuario, casino:Casino) {
     let ruleta: Ruleta = new Ruleta(100, casino, usuario);
     let elegirApuesta: number = menuRuleta(ruleta); 
@@ -244,10 +252,8 @@ function jugarRuleta(usuario:Usuario, casino:Casino) {
         elegirApuesta = menuRuleta(ruleta); 
     }
     
-    console.log("Volviendo al menú principal.");
-     
+    console.log("Volviendo al menú principal.");    
 }
-
 
 function volverAtras(): void{
     let entrada: number = rls.questionInt("\nIngrese 0 para volver atras: ");
@@ -283,7 +289,7 @@ function modoDeJuego(tipoApuesta: number, ruleta : Ruleta, usuario :Usuario) {
     switch(tipoApuesta) {
         case 1: //Numero solo
             ruleta.pedirApuesta();
-            ruleta.apostarNumSimpleReducido();
+            ruleta.apostarNumSimple();
             volverAtras();
             break;
         case 2: //Linea horizontal
@@ -350,3 +356,27 @@ function dibujarRuleta () {
     console.log("        |  Par | Impar  |  Rojas | Negras |");
     console.log("        |______|________|________|________|\n");
 }
+
+function dibujarTragamonedas(){
+  console.log(" _______________________");      
+  console.log("|  [ 9 ]  [ 10 ]  [ J ] |");      
+  console.log("|  [ Q ]  [ K ]   [ A ] | o ");
+  console.log("|  [ 9 ]  [ J ]   [ K ] | |");  
+  console.log("|_______________________| |");    
+  console.log("|  ________    _______  | |");
+  console.log("|  | SPIN  |   | BET |  |=O");
+  console.log("|_______________________|\n");
+}
+
+function dibujarDados(){
+    console.log("    +-------+        +--------+ ");
+	console.log("   /       /|       /  o   o /|");	 
+    console.log("  /   O   / |      /        / |");
+    console.log(" /       /  |     /  o   o /  |");
+    console.log("+-------+   |    +--------+   |");
+    console.log("|   O   |   +    |  O   O |   +");
+    console.log("|   O   |  /     |  O   O |  /");
+    console.log("|   O   | /      |  O   O | /");
+    console.log("+-------+        +--------+/\n");
+}
+

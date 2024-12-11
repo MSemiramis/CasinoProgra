@@ -35,7 +35,7 @@ var Casino = /** @class */ (function () {
             return;
         }
         var nuevoSaldo = usuario.getSaldo() + monto;
-        if (nuevoSaldo < 0) {
+        if (nuevoSaldo <= 0) {
             console.log("Usuario sin saldo. Por favor, cargar saldo para seguir jugando en Casino La Gaita.");
             this.usuarios[indice].setSaldo(0);
         }
@@ -48,6 +48,39 @@ var Casino = /** @class */ (function () {
         }
         this.guardarEnJSON();
     };
+    //Modificar el saldo con switch. Como pidio Sofia
+    /*public modificarSaldo(usuario: Usuario, monto: number): void {
+        if (!usuario) {
+            console.log("Error de ejecución, usuario inválido.");
+            return;
+        }
+    
+        const indice = this.usuarios.findIndex((u) => u.getId() == usuario.getId());
+        if (indice == -1) {
+            console.log("Usuario no encontrado en el sistema.");
+            return;
+        }
+    
+        const nuevoSaldo = usuario.getSaldo() + monto;
+        switch (true) {
+            case nuevoSaldo <= 0:
+                console.log(
+                    "Usuario sin saldo. Por favor, cargar saldo para seguir jugando en Casino La Gaita."
+                );
+                this.usuarios[indice].setSaldo(0);
+                break;
+            case nuevoSaldo > 0:
+                console.log("Su saldo actual es " + nuevoSaldo);
+                this.usuarios[indice].setSaldo(nuevoSaldo);
+                break;
+            case nuevoSaldo === 0:
+                console.log(
+                    "Error en el saldo. Contactar a soporte de Casino La Gaita."
+                );
+                break;
+        }
+        this.guardarEnJSON();
+    }*/
     Casino.prototype.verificarUsuario = function (nombreUsuario) {
         return this.usuarios.find(function (u) { return u.getNombreUsuario() == nombreUsuario; });
     };

@@ -1,4 +1,3 @@
-
 export class Usuario{
 
     protected id: String;

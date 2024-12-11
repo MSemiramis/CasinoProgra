@@ -1,0 +1,23 @@
+<---------------------> DADOS <------------------------>
+
+	    +-------+        +--------+
+	   /       /|       /  o   o /|
+	  /   O   / |      /        / |
+	 /       /  |     /  o   o /  |
+	+-------+   |    +--------+   |
+	|   O   |   +    |  O   O |   +
+	|   O   |  /     |  O   O |  /
+	|   O   | /      |  O   O | /
+	+-------+        +--------+/
+
+<------------------------------------------------------>
+
+1- Realizar la apuesta inicial para la tirada de salida.
+2- Tirar los dados.
+* Si el valor de la tirada es 7 u 11, se gana la apuesta.
+* Si el valor de la tirada es 2, 3 o 12, se pierde la apuesta.
+* Si el valor de la tirada es distinta a las anteriormente mencionadas,
+  se convierte en el punto. El jugador debe volver a sacar el mismo
+  numero del punto antes de un 7 para ganar la apuesta.
+3- Se termina la ronda, volver al punto 1.
+

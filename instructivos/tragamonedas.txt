@@ -1,0 +1,22 @@
+<------------> TRAGAMONEDAS <------------>
+         _______________________
+        |  [ 9 ]  [ 10 ]  [ J ] |
+        |  [ Q ]  [ K ]   [ A ] | o
+        |  [ 9 ]  [ J ]   [ K ] | |
+        |_______________________| |
+        |  ________    _______  | |
+        |  | SPIN  |   | BET |  |=O
+        |_______________________|
+
+<----------------------------------------->
+
+Apuestas posibles:
+
+*Apuesta Basica: Deben salir 3 caracteres iguales 
+de forma consecutiva en la msima fila.
+
+*Apuesta Linea: Todos los caracteres de una msima
+fila deben ser exactamente iguales.
+
+*Apuesta por cantidad: Deben salir 10 caracteres
+iguales, sin importar su orden.

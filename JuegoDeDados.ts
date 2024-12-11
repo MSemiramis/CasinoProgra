@@ -3,7 +3,6 @@ import { Casino } from "./Casino";
 import * as rls from "readline-sync";
 import { Usuario } from "./Usuario";
 
-
 // Clase base genérica para juegos de dados
 export class JuegoDeDados {
   protected casino : Casino;
