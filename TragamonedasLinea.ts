@@ -1,4 +1,4 @@
-import { Tragamonedas } from "./tragamonedas";
+import { Tragamonedas } from "./Tragamonedas";
 import { Casino } from "./Casino";
 import { Usuario } from "./Usuario";
 import * as rls from "readline-sync";
@@ -7,8 +7,6 @@ import * as rls from "readline-sync";
 export class TragamonedasLinea extends Tragamonedas{
 
     constructor(casino:Casino, usuario :Usuario){
-        //Apuesta minima 1 para el juego basico
-        //Multiplicador de ganancia 20%
         super(50, 8);
         this.casino = casino;
         this.usuario = usuario;
@@ -24,13 +22,6 @@ export class TragamonedasLinea extends Tragamonedas{
     
         let tienePremio = false;
         const partida =this.generarMatriz();
-        /*
-        [
-        [ '9', 'K', 'A', 'J', 'K' ],
-        [ 'K', 'K', 'K', 'K', 'K' ],
-        [ 'Q', '10', 'J', 'J', '10' ]
-                        ]
-        */
         console.log(partida);
     
         for (let i = 0; i < partida.length; i++) {
@@ -46,9 +37,7 @@ export class TragamonedasLinea extends Tragamonedas{
             this.restarApuesta(apuesta);
         }
     }
-    
 
-    //Verificar si estos metodos pasan al padre, se pueden reutilizar.
     public pagarPremio(apuesta:number ): void {
         const premio = (apuesta * this.multiplicadorApuesta) - apuesta;
         this.casino.modificarSaldo(this.usuario,premio);

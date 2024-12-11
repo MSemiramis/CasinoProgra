@@ -1,15 +1,11 @@
-import { Tragamonedas } from "./tragamonedas";
+import { Tragamonedas } from "./Tragamonedas";
 import { Casino } from "./Casino";
 import { Usuario } from "./Usuario";
 import * as rls from "readline-sync";
 
-
-
 export class TragamonedasBasico extends Tragamonedas{
 
     constructor(casino:Casino, usuario :Usuario){
-        //Apuesta minima 1 para el juego basico
-        //Multiplicador de ganancia 20%
         super(10, 2);
         this.casino = casino;
         this.usuario = usuario;
@@ -44,7 +40,6 @@ export class TragamonedasBasico extends Tragamonedas{
         }
     }
 
-    //Verificar si estos metodos pasan al padre, se pueden reutilizar.
     public pagarPremio(apuesta:number ): void {
         const premio = apuesta * this.multiplicadorApuesta;
         this.casino.modificarSaldo(this.usuario,premio);

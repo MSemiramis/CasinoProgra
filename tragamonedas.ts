@@ -72,5 +72,4 @@ export abstract class Tragamonedas implements Juego {
         return this.casino;
     }
 
-
 }
