@@ -13,28 +13,28 @@ export class Casino{
     }
     //Funciones para JSON
 
-    guardarEnJSON(): void {
+    public guardarEnJSON(): void {
         if (this.usuarios && this.usuarios.length > 0) {
             const data = {
                 usuarios: this.usuarios,
                 contador: this.contador,
-        };
+            };
 
-        fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
+            fs.writeFileSync(this.RUTA_DATOS, JSON.stringify(data, null, 2), "utf-8");
         
-        console.log(`Datos Actualizados.`);
+            console.log(`Datos Actualizados.`);
         }else{
             console.error("no hay usuario")
         }
     }
 
-    modificarSaldo(usuario: Usuario, monto: number): void {
+    public modificarSaldo(usuario: Usuario, monto: number): void {
         if (!usuario) {
             console.log("Error de ejecución, usuario inválido.");
             return;
         }
-        const indice = this.usuarios.findIndex((u) => u.getId() === usuario.getId());
-        if (indice === -1) {
+        const indice = this.usuarios.findIndex((u) => u.getId() == usuario.getId());
+        if (indice == -1) {
             console.log("Usuario no encontrado en el sistema.");
             return;
         }
@@ -55,13 +55,13 @@ export class Casino{
         this.guardarEnJSON();
     }
 
-    verificarUsuario(nombreUsuario: string): Usuario | undefined {
+    public verificarUsuario(nombreUsuario: string): Usuario | undefined {
         return this.usuarios.find(
-            (u) => u.getNombreUsuario() === nombreUsuario
+            (u) => u.getNombreUsuario() == nombreUsuario
         );
     }
 
-    cargarDesdeJSON(): void {
+    public cargarDesdeJSON(): void {
         if (fs.existsSync(this.RUTA_DATOS)) {
             const data = JSON.parse(fs.readFileSync(this.RUTA_DATOS, "utf-8"));
             this.usuarios = data.usuarios.map((u: any) => 
@@ -72,9 +72,9 @@ export class Casino{
             ));
             this.contador = parseInt(data.contador);
             console.log("Datos cargados correctamente.");
-          } else {
+        } else {
             console.warn("No se encontró el archivo de datos. Se inicializa vacío.");
-          }
+        }
     }
 
     public generarId(prefijo:string): string {
@@ -82,7 +82,7 @@ export class Casino{
         return prefijo + this.contador; 
     }
 
-    altaUsuario(nombreUsuario: String, pass:String, saldo: number): void {
+    public altaUsuario(nombreUsuario: String, pass:String, saldo: number): void {
         const id = this.generarId("U"); 
         const nuevoUsuario = new Usuario(id, nombreUsuario, pass, saldo); 
         this.usuarios.push(nuevoUsuario); 
@@ -92,11 +92,20 @@ export class Casino{
 
     }
 
-    buscarUsuario(nombreUsuario: string, pass: string): Usuario | undefined {
+    public buscarUsuario(nombreUsuario: string, pass: string): Usuario | undefined {
         return this.usuarios.find(
-            (u) => u.getNombreUsuario() === nombreUsuario && u.validarPass(pass)
-          );
-        }
+            (u) => u.getNombreUsuario() == nombreUsuario && u.validarPass(pass)
+        );
+    }
+
+    //GETTERS
+    public getUsuarios(): Usuario[] {
+        return this.usuarios;
+    }
+
+    public getContador(): number {
+        return this.contador;
+    }
 }
 
 

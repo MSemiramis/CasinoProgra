@@ -7,8 +7,6 @@ import * as rls from "readline-sync";
 export class TragamonedasCantidad extends Tragamonedas{
 
     constructor(casino:Casino, usuario :Usuario){
-        //Apuesta minima 1 para el juego basico
-        //Multiplicador de ganancia 20%
         super(100, 12);
         this.casino = casino;
         this.usuario = usuario;
@@ -24,15 +22,6 @@ export class TragamonedasCantidad extends Tragamonedas{
     
         let tienePremio = false;
         const partida = this.generarMatriz();
-
-        /*
-        [
-        [ '9', 'K', 'A', 'J', 'K' ],
-        [ 'K', 'K', 'K', 'K', 'K' ],
-        [ 'Q', 'K', 'J', 'K', 'K' ]
-                        ]
-        */
-
         console.log(partida);
         const contador: { [key: string]: number } = {};
 
@@ -64,7 +53,6 @@ export class TragamonedasCantidad extends Tragamonedas{
         }
     }
 
-    //Verificar si estos metodos pasan al padre, se pueden reutilizar.
     public pagarPremio(apuesta:number ): void {
         const premio = (apuesta * this.multiplicadorApuesta) - apuesta;
         this.casino.modificarSaldo(this.usuario,premio);

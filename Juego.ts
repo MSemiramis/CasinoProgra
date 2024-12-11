@@ -6,6 +6,3 @@ export interface Juego {
     restarApuesta(apuesta:number): void;//Metodo para restar la apuesta del saldo del jugador
 }
 
-
-//En ambos metodos se pasa un usuario, que va a jugar, y la apuesta realizada.
-//

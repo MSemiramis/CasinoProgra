@@ -1,5 +1,4 @@
 import { Casino } from "./Casino";
-import { Juego } from "./Juego"; 
 import { Usuario} from "./Usuario";
 import * as rls from "readline-sync";
 
@@ -29,23 +28,13 @@ export class Ruleta  {
         this.usuario = usuario;
     }
 
-    jugar(usuario: Usuario, apuesta: number): void {
-        throw new Error("Method not implemented.");
-    }
-    restarApuesta(usuario: Usuario, apuesta: number): void {
-        throw new Error("Method not implemented.");
-    }
-
     public pedirApuesta(): void {
-        let aux = false;
         let apuesta: number = 0;
-        const saldoUsuario= this.usuario.getSaldo();//1000
+        const saldoUsuario= this.usuario.getSaldo();
         while (apuesta < this.getApuestaMinima() || apuesta > saldoUsuario) { 
             apuesta = rls.questionInt("\nIngrese el monto a apostar (apuesta minima " + this.getApuestaMinima() + "): ");
         }
         this.setApuesta(apuesta);
-        
-        return 
     }
 
     private encontrarArreglo(arreglo: number[][], numeroBuscado: number): number {
@@ -67,16 +56,14 @@ export class Ruleta  {
         if (comparacion) {
             console.log(`Felicitaciones! Has ganado. Tu premio es de $ ${this.getPremio()}`);
             this.casino.modificarSaldo(this.usuario, this.getPremio());
-            //this.pagarPremio(¿?);     A que cliente se lo mando?? habria que ver como traer al cliente o cambiar el metodo pagarPremio()
         } else {
             console.log("Esta vez no se dió! Mejor suerte para la próxima!");
             this.casino.modificarSaldo(this.usuario, -this.getApuesta() );
         }
-        console.log(this.usuario.getSaldo());
-        return
+        console.log("Saldo actual: " + this.usuario.getSaldo());
     }
 
-    public apostarNumSimpleReducido(): void {
+    public apostarNumSimple(): void {
         this.setNumeroApostado();
         this.armarJuego(3);
         console.log("\nGirando la ruleta...");
@@ -192,7 +179,7 @@ export class Ruleta  {
     }
 
     public setNumeroGanador(): void {
-        this.numeroGanador = Math.floor(Math.random() * 36);
+        this.numeroGanador = Math.floor(Math.random() * 37);
     }
 
     //GETTERS

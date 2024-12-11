@@ -1,4 +1,3 @@
-
 export class Usuario{
 
     protected id: String;
@@ -14,27 +13,31 @@ export class Usuario{
     }
 
     //SETTERS//
-    setNombre(nombreUsuario:string){
+    public setNombre(nombreUsuario:string){
         this.nombreUsuario = nombreUsuario;
     }
-    setSaldo(saldo:number){
+
+    public setSaldo(saldo:number){
         this.saldo = saldo;
     }
-    setId(id:string){
+
+    public setId(id:string){
         this.id = id;
     }
-    setPass(pass:string){
+
+    public setPass(pass:string){
         this.pass = pass;
     }
     //GETTERS//
-    getId(){
+    public getId(){
         return this.id;
     }
-    getNombreUsuario(){
+
+    public getNombreUsuario(){
         return this.nombreUsuario;
     }
     
-    getSaldo(){
+    public getSaldo(){
         return this.saldo;
     }
 

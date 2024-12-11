@@ -45,13 +45,16 @@ export abstract class Tragamonedas implements Juego {
     public setMinApuesta(minApuesta:number){
         this.minApuesta = minApuesta;
     }
+
     public setMultiplicadorApuesta(multiplicadorApuesta:number){
         this.multiplicadorApuesta = multiplicadorApuesta;
     }
-    setUsuario (usuario:Usuario){
+
+    public setUsuario (usuario:Usuario){
         this.usuario = usuario;
     }
-    setCasino(casino:Casino){
+
+    public setCasino(casino:Casino){
         this.casino = casino;
     }
 
@@ -62,12 +65,11 @@ export abstract class Tragamonedas implements Juego {
     public getMultiplicadorApuesta(){
         return this.multiplicadorApuesta;
     }
-    getUsuario(){
+    public getUsuario(){
         return this.usuario;
     }
-    getCasino(){
+    public getCasino(){
         return this.casino;
     }
-
 
 }
