@@ -49,7 +49,7 @@ export class JuegoDeDados {
 
   restarSaldo(apuesta:number){
     console.log("Partida perdida")
-    this.casino.modificarSaldo(this.usuario, apuesta);
+    this.casino.modificarSaldo(this.usuario, -apuesta);
   }
 
   verificarPartida(apuesta:number){
@@ -65,7 +65,7 @@ export class JuegoDeDados {
     ){
       this.restarSaldo(apuesta);
     }else{
-      this,this.tirarDados();
+      this.tirarDados();
       resultado = this.sumarDados();
       if(resultado == 7){
         this.pagarApuesta(apuesta);
