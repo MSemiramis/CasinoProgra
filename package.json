@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "@types/readline-sync": "^1.4.8"
+    "@types/readline-sync": "^1.4.8",
+    "tsuml": "^0.0.1-alpha.8"
   },
   "dependencies": {
     "readline-sync": "^1.4.10"

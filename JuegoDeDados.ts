@@ -34,7 +34,7 @@ export class JuegoDeDados {
     let apuesta = 0; 
     const saldoUsuario = this.usuario.getSaldo();
     console.log ("inicia el juego de dados");
-    while (apuesta > this.apuestaMinima || apuesta > saldoUsuario) { 
+    while (apuesta < this.apuestaMinima || apuesta > saldoUsuario) { 
         apuesta = rls.questionInt("\nIngrese el monto a apostar: ");
       }
     this.tirarDados();

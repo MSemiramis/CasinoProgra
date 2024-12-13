@@ -1,4 +1,4 @@
-import { Tragamonedas } from "./Tragamonedas";
+import { Tragamonedas } from "./tragamonedas";
 import { Casino } from "./Casino";
 import { Usuario } from "./Usuario";
 import * as rls from "readline-sync";
